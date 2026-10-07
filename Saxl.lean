@@ -28,3 +28,4 @@ import Saxl.QMap
 import Saxl.LetterInj
 import Saxl.TwistPair
 import Saxl.Prop32
+import Saxl.Bridge

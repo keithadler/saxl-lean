@@ -172,6 +172,11 @@ No multiplicity-one Young's rule used.
 Formerly remaining for Prop 3.2: the twisted map `id ⊗ Θ` with `Z_m ⊆ (id⊗Θ)(W_m)`, and the
 `Occurs` chain (`of_surjective` ×2, mono, `occurs_of_occurs_transpose`, `young_occurs` + cast + orbit).
 
+**Bridge — DONE** (`Bridge.lean`): `spechtEquiv` (same shape ⇒ isomorphic), `tmulSub : S^{t'} ⊗ S^t → pair space`,
+`occurs_tprod_of_occurs_Wm`, and **`tensorSquareCovers_of_Wm`**: `TensorSquareCovers m` follows once every
+`S^λ` (`λ ⊢ N_m`) occurs in `W_m` for the canonical tableau — no casts.  So the whole conjecture now
+reduces to Theorem 3.1 in the form `∀ λ ⊢ N_m, Occurs (canonicalTableau λ) W_m`.
+
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
 
