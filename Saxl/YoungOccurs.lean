@@ -3,6 +3,7 @@ import Saxl.Pieri
 import Saxl.Sectors
 import Saxl.WordSectors
 import Saxl.WordRep
+import Saxl.ShapeInvariance
 
 /-!
 # Young's rule, occurrence form — the inductive step
@@ -146,5 +147,123 @@ theorem young_step (hle : nu ≤ lam) (hstrip : HorizontalStrip nu lam)
   exact occurs_of_intertwiner_to T.t Φ hΦ0
 
 end step
+
+/-! ### The chain induction -/
+
+section chain
+
+open YoungDiagram
+
+variable {a b k : ℕ}
+
+theorem content_extendWord_last (w : Fin a → Fin k) :
+    content (extendWord (b := b) w) (Fin.last k) = b := by
+  unfold content
+  rw [Finset.card_filter, Fin.sum_univ_add]
+  simp only [extendWord_castAdd, extendWord_natAdd, (Fin.castSucc_lt_last _).ne, if_false,
+    Finset.sum_const_zero, if_true, Finset.sum_const, Finset.card_univ, Fintype.card_fin,
+    smul_eq_mul, mul_one, zero_add]
+
+theorem content_extendWord_castSucc (w : Fin a → Fin k) (i : Fin k) :
+    content (extendWord (b := b) w) (Fin.castSucc i) = content w i := by
+  unfold content
+  rw [Finset.card_filter, Finset.card_filter, Fin.sum_univ_add]
+  simp only [extendWord_castAdd, extendWord_natAdd, Fin.castSucc_inj, (Fin.castSucc_lt_last _).ne',
+    if_false, Finset.sum_const_zero, add_zero]
+
+/-- `μ.cells ⊕ (λ.cells \ μ.cells) ≃ λ.cells`. -/
+def cellsSumDiff {mu lam : YoungDiagram} (hle : mu ≤ lam) :
+    mu.cells ⊕ ↥(lam.cells \ mu.cells) ≃ lam.cells where
+  toFun := Sum.elim (fun c => ⟨c.1, hle c.2⟩) (fun c => ⟨c.1, (Finset.mem_sdiff.1 c.2).1⟩)
+  invFun c := if h : c.1 ∈ mu.cells then Sum.inl ⟨c.1, h⟩
+    else Sum.inr ⟨c.1, Finset.mem_sdiff.2 ⟨c.2, h⟩⟩
+  left_inv x := by
+    rcases x with c | c
+    · simp [c.2]
+    · have := (Finset.mem_sdiff.1 c.2).2
+      simp [this]
+  right_inv c := by
+    by_cases h : c.1 ∈ mu.cells
+    · simp [h]
+    · simp [h]
+
+/-- A strip tableau for `μ ⊆ λ` on `Fin (a + b)` positions, from the cardinalities. -/
+noncomputable def stripTableauOf {mu lam : YoungDiagram} (hle : mu ≤ lam) (ha : mu.card = a)
+    (hb : mu.card + b = lam.card) : StripTableau a b mu lam :=
+  let e1 : Fin a ≃ mu.cells := (Finset.equivFinOfCardEq ha).symm
+  have hb' : (lam.cells \ mu.cells).card = b := by
+    have := Finset.card_sdiff_add_card_eq_card (hle : mu.cells ⊆ lam.cells)
+    show (lam.cells \ mu.cells).card = b
+    have h2 : lam.cells.card = lam.card := rfl
+    have h3 : mu.cells.card = mu.card := rfl
+    omega
+  let e2 : Fin b ≃ ↥(lam.cells \ mu.cells) := (Finset.equivFinOfCardEq hb').symm
+  let t : Tableau (a + b) lam := (finSumFinEquiv.symm.trans (e1.sumCongr e2)).trans (cellsSumDiff hle)
+  { t := t
+    mem_nu := fun i => by
+      show ((cellsSumDiff hle) ((e1.sumCongr e2) (finSumFinEquiv.symm (Fin.castAdd b i)))).val ∈ mu
+      rw [finSumFinEquiv_symm_apply_castAdd]
+      exact (e1 i).2
+    not_mem_nu := fun j => by
+      show ((cellsSumDiff hle) ((e1.sumCongr e2) (finSumFinEquiv.symm (Fin.natAdd a j)))).val ∉ mu
+      rw [finSumFinEquiv_symm_apply_natAdd]
+      exact (Finset.mem_sdiff.1 (e2 j).2).2 }
+
+/-- The degenerate case `n = 0`: `S^⊥` occurs in the (one-dimensional) word space. -/
+theorem occurs_zero (t : Tableau 0 ⊥) (w : Fin 0 → Fin 0) :
+    Occurs t (cycG (wordRepL 0 (Fin 0)) (Pi.single w 1)).toRepresentation := by
+  have hmem : (Pi.single w (1 : ℂ) : WordSpaceL 0 (Fin 0)) ∈ cycG (wordRepL 0 (Fin 0)) (Pi.single w 1) :=
+    Submodule.subset_span ⟨1, by simp⟩
+  have hg : ∀ g : Perm (Fin 0), g = 1 := fun g => by ext i; exact i.elim0
+  let F : IntertwiningMap (spechtRep t)
+      (cycG (wordRepL 0 (Fin 0)) (Pi.single w 1)).toRepresentation :=
+    { toLinearMap := (LinearMap.proj (rowWord t) ∘ₗ (Specht t).subtype).smulRight
+        (⟨Pi.single w 1, hmem⟩ : (cycG (wordRepL 0 (Fin 0)) (Pi.single w 1)).toSubmodule)
+      isIntertwining' := fun g => by rw [hg g, map_one, map_one]; rfl }
+  refine ⟨F, fun h0 => ?_⟩
+  have := congrArg (fun k : IntertwiningMap (spechtRep t)
+    (cycG (wordRepL 0 (Fin 0)) (Pi.single w 1)).toRepresentation =>
+    (k ⟨polytabloid t, polytabloid_mem_specht t⟩ : WordSpaceL 0 (Fin 0)) w) h0
+  have h1 : (F ⟨polytabloid t, polytabloid_mem_specht t⟩ : WordSpaceL 0 (Fin 0)) =
+      polytabloid t (rowWord t) • Pi.single w 1 := rfl
+  rw [h1, polytabloid_apply_rowWord, one_smul] at this
+  simp at this
+
+/-- **Young's rule, occurrence form, along a sized chain.** -/
+theorem young_occurs_aux (ℓ : ℕ) (θ : ℕ → ℕ) (τ : YoungDiagram) (hc : SizedChain θ ℓ ⊥ τ) :
+    ∃ (n : ℕ) (_ : n = τ.card) (w : Fin n → Fin ℓ),
+      (∀ i : Fin ℓ, content w i = θ i) ∧
+      ∀ t : Tableau n τ, Occurs t (cycG (wordRepL n (Fin ℓ)) (Pi.single w 1)).toRepresentation := by
+  generalize hb : (⊥ : YoungDiagram) = b at hc
+  induction hc with
+  | zero ν =>
+    subst hb
+    refine ⟨0, ?_, fun i => i.elim0, fun i => i.elim0, fun t => occurs_zero t _⟩
+    show 0 = (⊥ : YoungDiagram).cells.card
+    rw [cells_bot, Finset.card_empty]
+  | @succ ℓ ν mu lam hc hs hcard ih =>
+    obtain ⟨a, ha, w, hw, hocc⟩ := ih hb
+    refine ⟨a + θ ℓ, by omega, extendWord w, ?_, ?_⟩
+    · intro i
+      refine Fin.lastCases ?_ (fun i => ?_) i
+      · exact content_extendWord_last w
+      · rw [content_extendWord_castSucc, hw]
+        rfl
+    · intro t
+      let T : StripTableau a (θ ℓ) mu lam := stripTableauOf hs.1 ha.symm hcard
+      have hd : mu.colLen 0 ≤ lam.colLen 0 := colLen_le_of_le hs.1 0
+      have := young_step T hs.1 hs hd w (hocc _)
+      exact occurs_of_occurs T.t t this
+
+/-- **Young's rule (occurrence form).**  If `τ ⊵ θ` with `|τ| = |θ|`, then `S^τ` occurs in the
+cyclic module generated by a word of content `θ`. -/
+theorem young_occurs {τ θ : YoungDiagram} (hd : Dominates τ θ) (hc : τ.card = θ.card) :
+    ∃ (n : ℕ) (_ : n = τ.card) (w : Fin n → Fin (θ.colLen 0)),
+      (∀ i, content w i = θ.rowLen i) ∧
+      ∀ t : Tableau n τ,
+        Occurs t (cycG (wordRepL n (Fin (θ.colLen 0))) (Pi.single w 1)).toRepresentation :=
+  young_occurs_aux _ _ _ (sizedChain_of_dominates hd hc)
+
+end chain
 
 end OAI.Saxl

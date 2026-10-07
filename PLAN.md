@@ -151,7 +151,11 @@ occurrence form (`τ ⊵ θ ⇒ Occurs τ M^θ`), obtainable from `occurs_ind_of
 **N5-prep — DONE** (`WordSectors.lean`): `Subsets n b` with the transitive `S_n`-action, `lastPositions`,
 `embPair` presents its stabiliser (`exists_embPair_of_smul_eq`), sector projections `sectorProj` by the
 positions of a distinguished letter (disjoint, equivariant).  `Sectors.lean` no longer needs `Σ π_A = id`.
-NEXT: `YoungOccurs.lean` — induct along `sizedChain_of_dominates`; per step combine
+**N5 (occurrence form) — DONE** (`YoungOccurs.lean`): `young_step` and **`young_occurs`**:
+`τ ⊵ θ`, `|τ| = |θ|` ⇒ for some `n = |τ|` and a word `w : Fin n → Fin (rows θ)` of content `θ`, `S^τ`
+occurs in `ℂ[S_n] e_w` for every `τ`-tableau on `n` positions.  (Position count is existential to
+avoid `Fin`-casts; a cast lemma is needed at the consumer.)
+Original note: induct along `sizedChain_of_dominates`; per step combine
 `exists_pair_intertwiner_of_occurs` (Pieri), the restriction map `A₀ ↠ W ⊠ 1` (take `W` = the cyclic
 orbit-span of the previous word so surjectivity is free), and `exists_extension_of_sectors`; conclude
 `Dominates τ θ → Occurs tτ (ℂ[S_n] e_{w_θ})`.
