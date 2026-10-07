@@ -218,7 +218,17 @@ irreducibles are linearly independent class functions; `card_le_card_conjClasses
 `ConjClassesPartition.lean` (`ConjClasses (Perm α) ≃ (Fintype.card α).Partition`), both general, both
 absent from Mathlib.  Fork `keithadler/mathlib4`, clone at `~/mathlib4-contrib`.
 
-**Prop 4.2 for general width `s` — parts 1–2 DONE** (7 Oct 2026): `Band2Margin.lean`
+**7 Oct 2026, correction.** `openai/math` already contains OpenAI's own complete Lean proof of the
+paper (`lean/OAI/RepresentationTheory/Saxl/`, 38 files, no `sorry`, pushed 6 Oct 2026 21:58 UTC, a few
+hours before this repository's first commit); the session-start check that reported "only a `sorry`
+challenge" was wrong.  Decision: vendor their files under `Saxl/OAI/` (Apache-2.0, namespace
+`OAI.SaxlOAI`), close the full statement through the one-line bridge `Saxl/Complete.lean`, and stop
+re-deriving Prop 4.2 (s = 2 assembly) / Prop 5.3 / the case (ii) assembly here.  README "Provenance"
+records exactly which theorems are ours.  The Mathlib PRs #44612/#44613 stand (OpenAI's versions are
+`S_n`-specific and not in Mathlib).
+
+**Prop 4.2 for general width `s` — parts 1–3 DONE** (part 3 = `Band2Ext.lean`: `extendPairS`,
+`IsExt`, `extLift` injective and `S_a × S_b`-equivariant; `WordSectorsP.lean`) (7 Oct 2026): `Band2Margin.lean`
 (`eq_staircase_of_margins`: the equality case of the row/column margin inequalities, eqs. 4.6–4.7,
 proved once for any `s`), `Band2Transversal.lean` (`UnmixedS s`, `unmixedProjS s` = `P_s`,
 `high_iff_mem_small`: high positions of an unmixed term are exactly the cells of `ρ_{m-s}`),

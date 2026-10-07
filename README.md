@@ -1,12 +1,20 @@
 # saxl-lean
 
-A Lean 4 / Mathlib formalisation of OpenAI's preprint
+An independent Lean 4 / Mathlib formalisation of OpenAI's preprint
 *A Cyclic Polytabloid Proof of Saxl's Conjecture* (24 Sep 2026, [`openai/math`](https://github.com/openai/math)),
 checked against the challenge statement that ships with that repository.
 
-**Current result (v0.1.0, 7 Oct 2026):** Saxl's conjecture is machine-checked for the staircases
-`(1)`, `(2,1)`, `(3,2,1)` and `(4,3,2,1)` — every irreducible representation of `S_1`, `S_3`, `S_6`
-and `S_10` occurs in the tensor square of the staircase Specht module.
+**Read this first.** OpenAI's repository contains its *own* complete Lean proof of the paper
+(`lean/OAI/RepresentationTheory/Saxl/`, 38 files, no `sorry`, pushed 6 Oct 2026). This project
+started a few hours later without noticing it, and re-derived roughly the first half of the proof
+independently. Since 7 Oct 2026 OpenAI's files are vendored here under `Saxl/OAI/` (Apache-2.0,
+namespace renamed to `OAI.SaxlOAI`) and used to close the full statement. **The "Provenance"
+section below says exactly which theorems were written for this repository and which are OpenAI's.**
+Nothing in `Saxl/OAI/` was written here.
+
+**Proved in this repository (independently of OpenAI's files):** Saxl's conjecture for the
+staircases `(1)`, `(2,1)`, `(3,2,1)` and `(4,3,2,1)` — every irreducible representation of `S_1`,
+`S_3`, `S_6` and `S_10` occurs in the tensor square of the staircase Specht module.
 
 ```lean
 theorem saxl_le4 (m : ℕ) (hm1 : 1 ≤ m) (hm4 : m ≤ 4) (μ : YoungDiagram)
@@ -15,8 +23,11 @@ theorem saxl_le4 (m : ℕ) (hm1 : 1 ≤ m) (hm4 : m ≤ 4) (μ : YoungDiagram)
       (canonicalTableau μ hμ)
 ```
 
-`#print axioms` reports only `propext`, `Classical.choice`, `Quot.sound` — the three axioms the
-challenge permits.  There is no `sorry` anywhere except the full conjecture itself.
+**Proved by composing with the vendored OpenAI proof:** the full statement,
+`saxl_conjecture_vendored : SaxlConjecture` in `Saxl/Complete.lean` (OpenAI's `Model.lean` is
+byte-identical to the challenge definitions, so their theorem is definitionally a proof of ours).
+
+`#print axioms` reports only `propext`, `Classical.choice`, `Quot.sound` for all of the above.
 
 ## The statement
 
@@ -50,20 +61,34 @@ The proof follows the paper's structure.  Ticks are fully proved; the rest is op
 | Prop 4.2 with `s = 1` (width-one band cut) | ✅ | `Band1`, `Band1Factor`, `Band1Assembly` |
 | **Theorem 3.1 for `m ≤ 4`; Saxl for `N_m ≤ 10`** | ✅ | `Thm31Small` |
 | Prop 4.2 for any width `s`: margin lemma, transversal, column rotation, band tableau, factorisation (eq. 4.8) | ✅ | `Band2Margin`, `Band2Transversal`, `Band2Shift`, `Band2Factor` |
-| Prop 4.2 with `s = 2`: assembly (`band2_step`) | ❌ | — |
-| Prop 5.3 and Lemma 2.1 transport / self-duality | ❌ | — |
+| Prop 4.2 with `s = 2`: extension-by-zero along the band split, injectivity, equivariance | ✅ | `Band2Ext`, `WordSectorsP` |
+| Prop 4.2 with `s = 2`: assembly (`band2_step`) | ❌ here; ✅ in vendored `Saxl/OAI/BandGlue`, `HighProjection`, `CoordinateSector` | — |
+| Prop 5.3 and Lemma 2.1 transport / self-duality | ❌ here; ✅ in vendored `Saxl/OAI/Path*`, `BandMatrices`, `SpechtDuality` | — |
 | `S^η ⊂ M^θ ⇒ η ⊵ θ`; Specht modules of different shapes are non-isomorphic | ✅ | `SpechtDistinct` |
 | Conjugacy classes of `S_n` embed into Young diagrams of size `n` | ✅ | `ClassDiagram` |
 | **Classification: every irreducible of `S_n` contains a Specht module** | ✅ | `Classification` |
 | Constituent extraction: a nonzero `ρ ⊠ M^θ → τ` stays nonzero on some `ρ ⊠ S^η`, `η ⊵ θ` | ✅ | `Constituent` |
-| Theorem 3.1 for all `m`; `saxl_conjecture` | ❌ | — |
+| Theorem 3.1 for all `m`; `saxl_conjecture` | ❌ here; ✅ via vendored `Saxl/OAI/Main` | `Complete` (bridge only) |
 
-The three ❌ items are all needed for case (ii) of the paper's induction, which first arises at
-`m = 5`.  The classification (`exists_specht_occurs`) was the main missing input: Mathlib has
-character orthogonality but no classification of irreducible `S_n`-representations; it is proved
-here by counting, with no Wedderburn–Artin.  `PLAN.md` records the route for the rest.
+The ❌ items are the parts of case (ii) of the paper's induction (`m ≥ 5`) that this repository has
+not re-derived; they are supplied by the vendored OpenAI files.  The classification
+(`exists_specht_occurs`) is proved here by counting class functions; OpenAI's
+`SpechtClassification.lean` proves the same statement by the same method for `S_n`.
 
 Roughly 6,900 lines of Lean and 430 theorems.
+
+## Provenance
+
+| Where | Who wrote it | What |
+|---|---|---|
+| `Saxl/Statement.lean` | OpenAI (challenge file, verbatim) | the definitions and the `sorry`ed target |
+| `Saxl/*.lean` except `OAI/`, `Complete` | this repository (Keith Adler with Claude) | everything in the ✅ rows above marked with a file name: Specht modules, James's theorem, Pieri, sectors, Young's rule, Prop 3.2, strip reduction, Prop 4.2 parts 1–3, Theorem 3.1 for `m ≤ 4`, the classification of irreducibles, constituent extraction |
+| `Saxl/OAI/*.lean` | **OpenAI** (vendored from `openai/math` commit `adc7f12`, Apache-2.0, namespace renamed) | OpenAI's complete proof; used only to close the full statement |
+| `Saxl/Complete.lean` | this repository | a one-line bridge: OpenAI's theorem is definitionally the challenge statement |
+| `contrib/*.lean` | this repository | generalised versions submitted to Mathlib |
+
+To check what this repository proves on its own, delete `Saxl/OAI/` and `Saxl/Complete.lean`;
+everything else still builds.
 
 ## Upstreaming to Mathlib
 
@@ -112,4 +137,4 @@ listed in the table above.  `PLAN.md` tracks progress and the next milestones.
 
 ## Credits
 
-Mathematics: the OpenAI preprint.  Formalisation: Keith Adler with Claude (Anthropic).
+Mathematics: the OpenAI preprint.  Formalisation outside `Saxl/OAI/`: Keith Adler with Claude (Anthropic).  `Saxl/OAI/`: OpenAI's formalisation, vendored under Apache-2.0.
