@@ -84,8 +84,7 @@ subrepresentation lattice avoids it.
 1. `Content.lean` — DONE: content of a word, `G`-invariance, `contentSub c` subrep, `spechtSub_le_contentSub`, `content_rowWord`.
 2. `Antisymmetrizer.lean` — DONE: `kappa`, `kappa_single_rowWord`, `kappa_wordRep` (sign on the right), `kappa_single_eq_zero` (repeated letter in a column), Hermitian `form` with unitarity, `form_kappa` (self-adjoint), `eq_zero_of_form_self_eq_zero`.
 3. `ColumnLemma.lean` — DONE: `ColumnDistinct`, `colPositions`, `exists_pos_of_lt_rowLen`, `lt_colLen_of_columnDistinct` (strong induction on the letter), **`exists_columnPerm`**.
-4. `SubmoduleTheorem.lean`: `κ_t u ∈ ℂ e_t` for `u` of content `λ`; `U ≤ M^λ` ⇒ `S^λ ≤ U` or
-   `U ⊥ S^λ`; positive-definiteness ⇒ `IsIrreducible (spechtRep t)`.
+4. `SubmoduleTheorem.lean` — DONE: `kappa_single_mem_span`, `kappa_mem_span_of_mem_contentSub`, **`submodule_theorem`** (James), **`spechtRep_isIrreducible`** as an instance.  Specht modules are irreducible — the Maschke bridge now applies unconditionally.
 
 Remaining: milestones 1–6.  Milestone 8 is reduced to Theorem 3.1 (`TensorSquareCovers`).
 The representation theory (Specht modules) is now the only thing standing between here and

@@ -99,7 +99,7 @@ theorem submodule_theorem (U : Subrepresentation (wordRep n d))
     · intro a x _ hx; rw [form_smul_right, hx, mul_zero]
 
 /-- A subrepresentation of `spechtRep t`, pushed into the word space. -/
-def liftSub (W : Subrepresentation (spechtRep t)) : Subrepresentation (wordRep n d) where
+noncomputable def liftSub (W : Subrepresentation (spechtRep t)) : Subrepresentation (wordRep n d) where
   toSubmodule := W.toSubmodule.map (Specht t).subtype
   apply_mem_toSubmodule g v hv := by
     rw [Submodule.mem_map] at hv ⊢
@@ -114,7 +114,7 @@ theorem mem_liftSub {W : Subrepresentation (spechtRep t)} {v : WordSpace n d} :
 
 /-- The Specht module is irreducible. -/
 instance spechtRep_isIrreducible : Representation.IsIrreducible (spechtRep t) := by
-  haveI : Nontrivial (Subrepresentation (spechtRep t)) := by
+  have : Nontrivial (Subrepresentation (spechtRep t)) := by
     refine ⟨⟨⊥, ⊤, fun h => ?_⟩⟩
     have hx : (⟨polytabloid t, polytabloid_mem_specht t⟩ : Specht t) ∈ (⊤ : Subrepresentation (spechtRep t)) :=
       subrep_mem_top _
@@ -128,6 +128,7 @@ instance spechtRep_isIrreducible : Representation.IsIrreducible (spechtRep t) :=
   rcases submodule_theorem t (liftSub t W) hU with h | h
   · right
     apply Subrepresentation.toSubmodule_injective
+    show W.toSubmodule = ⊤
     rw [eq_top_iff]
     intro x _
     have : (x : WordSpace n d) ∈ liftSub t W := h x.2
@@ -136,6 +137,7 @@ instance spechtRep_isIrreducible : Representation.IsIrreducible (spechtRep t) :=
     exact hy
   · left
     apply Subrepresentation.toSubmodule_injective
+    show W.toSubmodule = ⊥
     rw [eq_bot_iff]
     intro x hx
     have hx' : (x : WordSpace n d) ∈ liftSub t W := (mem_liftSub t).2 ⟨x, hx, rfl⟩

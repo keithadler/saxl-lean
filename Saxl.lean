@@ -9,3 +9,4 @@ import Saxl.MaschkeBridge
 import Saxl.Content
 import Saxl.Antisymmetrizer
 import Saxl.ColumnLemma
+import Saxl.SubmoduleTheorem
