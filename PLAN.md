@@ -138,6 +138,16 @@ Part B DONE (`SignTwistOccurs.lean`): `isIrreducible_signTwist`, `ΘS_bijective`
 **`occurs_of_occurs_transpose`** and **`occurs_transpose_of_occurs`**: `Occurs tᵗ (V ⊗ ε) ↔ Occurs t V`.
 N3 is closed.
 
+**N3b. Word model foundations — DONE** (`WordRep.lean`): `WordSpaceL n L`/`wordRepL` over any letter type
+(`WordSpace n d` is the case `L = Fin d`, definitionally), `letterPush` (equivariant pushforward along a
+letter map), `pairLift : WordSpace ⊗ WordSpace → pair-letter space` (`e_w ⊗ e_{w'} ↦ e_{(w,w')}`,
+equivariant for `tprod`).  Enables the paper's `(E ⊗ E)^{⊗B}` computations (`Q`, `P_s`) letterwise.
+
+**Design note for Prop 3.2 (no multiplicity-one needed):** `ϕ : V_C ⊗ ε → V_R` is our `ΘS`; `ΘS(u) =
+κ_{t₁}(Σ_{H_C} h e_{t₁}) ∈ ℂ e_{t₁}` by `kappa_mem_span_of_mem_contentSub`, nonzero since `ΘS` is injective and
+`u ≠ 0` (coefficient `|H_R|` at the row word).  So eq. (3.5) is bypassed; Young's rule is only needed in
+occurrence form (`τ ⊵ θ ⇒ Occurs τ M^θ`), obtainable from `occurs_ind_of_occurs` + `exists_extension_of_sectors`.
+
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
 
