@@ -31,3 +31,4 @@ import Saxl.Prop32
 import Saxl.Bridge
 import Saxl.Band1
 import Saxl.Band1Factor
+import Saxl.Band1Assembly

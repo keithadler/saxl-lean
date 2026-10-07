@@ -186,6 +186,13 @@ plan is: Prop 4.2 with `s = 1` ⇒ Theorem 3.1 for `m ≤ 4` ⇒ **Saxl for stai
 formal**; the classification is a separate sub-project (route: Wedderburn–Artin + `dim Z(ℂ[G]) = #conj
 classes` + `#conj classes of S_n = p(n)` + Specht modules pairwise non-isomorphic via `κ_t`/dominance).
 
+**Prop 4.2 (s = 1) — DONE** (`Band1.lean`, `Band1Factor.lean`, `Band1Assembly.lean`): `unmixedProj` (`P₁`),
+the transversal lemma `low_iff_band` (eqs. 4.6–4.7), the column shift and factorisation lemma
+`polytabloid_extendCol` (eq. 4.8), `Rpair_unmixedProj_wm` (`R(P₁ w_m) = c·w_{m-1}`), and **`band1_step`**:
+`Occurs ν W_{m-1} → HorizontalStrip ν λ → Occurs λ W_m` (via Pieri, the sector lemma and the projection).
+NEXT: Theorem 3.1 for `m ≤ 4` (induction using `prop32`, `strip_reduction`, `band1_step`, `Wm` is
+independent of the tableau) ⇒ `TensorSquareCovers m` for `m ≤ 4`.
+
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
 
