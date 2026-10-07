@@ -54,6 +54,16 @@ defined by rows: `shaveRow τ t i = (τ_i - t) + min τ_{i+1} t`.  It is a horiz
 Note: the existence direction never needs the "last row disappears" step — the `⊥` base case
 absorbs it.  Multiplicity-one of `S^θ` in `M^θ` (the chain is unique when `τ = θ`) is NOT done.
 
-Remaining: milestones 1–6 and 8.  Milestones 7 and the combinatorics of 3 are closed.
+## Main.lean — top-level reduction DONE, no sorry, standard axioms only
+
+`Occurs t σ` := ∃ nonzero intertwiner `S^μ → σ`.  `Occurs.mono` (subrep → ambient),
+`kronecker_pos_of_occurs` (bridge to the challenge's `finrank` definition), and
+**`saxlConjecture_of_covers`**: `SaxlConjecture` follows from `TensorSquareCovers m` for all `m ≥ 1`,
+where `TensorSquareCovers m` := every `S^μ`, `μ ⊢ N_m`, occurs in `S^ρ_m ⊗ S^ρ_m`.
+Gotcha recorded: typeclass search cannot find `AddCommGroup`/`Module.Finite` on
+`IntertwiningMap _ (tprod _ _)` (instance-path mismatch inside `tprod`'s `TensorProduct`); the fix
+is a generic lemma with explicit `(V := …) (W := …)` and letting `exact` check defeq.
+
+Remaining: milestones 1–6.  Milestone 8 is reduced to Theorem 3.1 (`TensorSquareCovers`).
 The representation theory (Specht modules) is now the only thing standing between here and
 the dominance base case (Prop 3.2).
