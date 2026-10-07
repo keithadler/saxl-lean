@@ -19,7 +19,7 @@ Hi all, I've opened two small PRs in finite-group representation theory. I searc
 
 * #44612 `Equiv.Perm.conjClassesEquivPartition : ConjClasses (Perm α) ≃ (Fintype.card α).Partition`, packaging `Perm.partition`, `partition_eq_of_isConj` and `exists_with_cycleType_iff`, plus `card_conjClasses_eq_card_partition`.
 
-Context: with these two, "every irreducible representation of `S_n` is a Specht module" follows as soon as Specht modules are shown pairwise non-isomorphic. I have that downstream in a formalisation of Saxl's conjecture (https://github.com/keithadler/saxl-lean, `Saxl/Classification.lean`) and wanted to upstream the Mathlib-independent parts first. Happy to adjust names or placement — reviews welcome.
+Context: with these two, "every irreducible representation of `S_n` is a Specht module" follows as soon as Specht modules are shown pairwise non-isomorphic. I have that downstream in a formalisation of Saxl's conjecture (https://github.com/keithadler/saxl-lean, `Saxl/Classification.lean`) and wanted to upstream the Mathlib-independent parts first. Disclosure: both PRs and the downstream repo were written with Claude (Anthropic) assisting; I reviewed and built everything locally against master. Happy to adjust names or placement — reviews welcome.
 
 Note: #43899 (plp127) changes the `FiniteDimensional` hypotheses in `Character.lean`; if that lands first I'll rebase #44613 onto it.
 
