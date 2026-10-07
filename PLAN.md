@@ -64,6 +64,13 @@ Gotcha recorded: typeclass search cannot find `AddCommGroup`/`Module.Finite` on
 `IntertwiningMap _ (tprod _ _)` (instance-path mismatch inside `tprod`'s `TensorProduct`); the fix
 is a generic lemma with explicit `(V := …) (W := …)` and letting `exact` check defeq.
 
+## Polytabloid.lean — started (milestone 1 groundwork), no sorry
+
+`wordRep_single` (`g • e_w = e_{w ∘ g⁻¹}`), `polytabloid_eq_sum`, `polytabloid_apply_rowWord`
+(coefficient 1 at the row word), `polytabloid_ne_zero`, `wordRep_polytabloid` (column group acts by
+sign).  Uses `attribute [local instance] Fintype.ofFinite` to match the challenge's `Fintype` choice.
+Note: `openai/math` contains NO symmetric-group representation theory to reuse (checked 7 Oct 2026).
+
 Remaining: milestones 1–6.  Milestone 8 is reduced to Theorem 3.1 (`TensorSquareCovers`).
 The representation theory (Specht modules) is now the only thing standing between here and
 the dominance base case (Prop 3.2).
