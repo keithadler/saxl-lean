@@ -51,12 +51,15 @@ The proof follows the paper's structure.  Ticks are fully proved; the rest is op
 | **Theorem 3.1 for `m ≤ 4`; Saxl for `N_m ≤ 10`** | ✅ | `Thm31Small` |
 | Prop 4.2 with `s = 2` | ❌ | — |
 | Prop 5.3 and Lemma 2.1 transport / self-duality | ❌ | — |
-| Classification: every irreducible of `S_n` is some `S^λ` | ❌ | — |
+| `S^η ⊂ M^θ ⇒ η ⊵ θ`; Specht modules of different shapes are non-isomorphic | ✅ | `SpechtDistinct` |
+| Conjugacy classes of `S_n` embed into Young diagrams of size `n` | ✅ | `ClassDiagram` |
+| **Classification: every irreducible of `S_n` contains a Specht module** | ✅ | `Classification` |
 | Theorem 3.1 for all `m`; `saxl_conjecture` | ❌ | — |
 
-The last four items are all needed for case (ii) of the paper's induction, which first arises at
-`m = 5`.  The classification is the main blocker: Mathlib has Wedderburn–Artin over `ℂ` but no
-counting of irreducibles and no classification for `S_n`.  `PLAN.md` records the intended route.
+The three ❌ items are all needed for case (ii) of the paper's induction, which first arises at
+`m = 5`.  The classification (`exists_specht_occurs`) was the main missing input: Mathlib has
+character orthogonality but no classification of irreducible `S_n`-representations; it is proved
+here by counting, with no Wedderburn–Artin.  `PLAN.md` records the route for the rest.
 
 Roughly 6,200 lines of Lean and 400 theorems.
 

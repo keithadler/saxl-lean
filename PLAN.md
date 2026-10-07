@@ -198,8 +198,18 @@ the staircase tableau), `occurs_Wm_castN` (transport of occurrence in `W_m` alon
 `1 ≤ m ≤ 4` — Saxl's conjecture for staircases of size `≤ 10`, machine-checked against the challenge's
 own definitions with only the three permitted axioms.
 
-NEXT (to go past `m = 4`): either the classification route above, or Prop 4.2 for `s = 2` plus
-Prop 5.3 together with Lemma 2.1 transport; all three are needed for the paper's case (ii).
+**Classification — DONE** (7 Oct 2026, `ClassDiagram.lean`, `SpechtDistinct.lean`,
+`Classification.lean`).  No Wedderburn–Artin: `dominates_of_colDistinct` (James's combinatorial
+lemma) ⇒ `dominates_of_occurs_contentSub` (`S^η ⊂ M^θ ⇒ η ⊵ θ`) ⇒ `eq_of_specht_equiv` (Specht
+modules of different shapes are non-isomorphic); `classDiagram_injective` (conjugacy classes of `S_n`
+inject into Young diagrams of size `n` via the cycle type); then Mathlib's `char_orthonormal` makes
+the characters of `ρ` and of all `S^η` linearly independent class functions, one too many unless `ρ`
+is isomorphic to some `S^η`.  Result: **`exists_specht_occurs`**: every irreducible finite-dimensional
+representation of `S_n` contains (is) a Specht module.
+
+NEXT: the case (ii) assembly needs (a) "every irreducible constituent of `M^θ` is `S^η` with
+`η ⊵ θ`" — now immediate from `exists_specht_occurs` + `dominates_of_occurs_contentSub` + Maschke;
+(b) Prop 4.2 for `s = 2` (`Band2*.lean`); (c) Prop 5.3 with Lemma 2.1 transport.
 
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
