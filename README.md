@@ -54,6 +54,7 @@ The proof follows the paper's structure.  Ticks are fully proved; the rest is op
 | `S^η ⊂ M^θ ⇒ η ⊵ θ`; Specht modules of different shapes are non-isomorphic | ✅ | `SpechtDistinct` |
 | Conjugacy classes of `S_n` embed into Young diagrams of size `n` | ✅ | `ClassDiagram` |
 | **Classification: every irreducible of `S_n` contains a Specht module** | ✅ | `Classification` |
+| Constituent extraction: a nonzero `ρ ⊠ M^θ → τ` stays nonzero on some `ρ ⊠ S^η`, `η ⊵ θ` | ✅ | `Constituent` |
 | Theorem 3.1 for all `m`; `saxl_conjecture` | ❌ | — |
 
 The three ❌ items are all needed for case (ii) of the paper's induction, which first arises at

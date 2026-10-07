@@ -207,9 +207,22 @@ the characters of `ρ` and of all `S^η` linearly independent class functions, o
 is isomorphic to some `S^η`.  Result: **`exists_specht_occurs`**: every irreducible finite-dimensional
 representation of `S_n` contains (is) a Specht module.
 
-NEXT: the case (ii) assembly needs (a) "every irreducible constituent of `M^θ` is `S^η` with
-`η ⊵ θ`" — now immediate from `exists_specht_occurs` + `dominates_of_occurs_contentSub` + Maschke;
-(b) Prop 4.2 for `s = 2` (`Band2*.lean`); (c) Prop 5.3 with Lemma 2.1 transport.
+**Constituent extraction — DONE** (7 Oct 2026, `Constituent.lean`): `exists_irreducible_subrep`,
+`exists_specht_occurs_of_nontrivial`, the external tensor product `boxTensor ρ A` of representations of
+`S_a` and `S_b`, and `exists_specht_boxTensor_contentSub`: a nonzero `S_a × S_b`-intertwiner
+`ρ ⊠ M^θ → τ` stays nonzero on `ρ ⊠ S^η` for some `η ⊵ θ` (the paper's "Equation (6.3) provides some
+`η` with `a_η > 0` and `c^λ_{ν,η} > 0`"; with `θ` of `≤ 4` parts, `η` has `≤ 4` rows).
+
+**Mathlib upstreaming** (`contrib/`): `CharacterCount.lean` (characters of pairwise non-isomorphic
+irreducibles are linearly independent class functions; `card_le_card_conjClasses`) and
+`ConjClassesPartition.lean` (`ConjClasses (Perm α) ≃ (Fintype.card α).Partition`), both general, both
+absent from Mathlib.  Fork `keithadler/mathlib4`, clone at `~/mathlib4-contrib`.
+
+NEXT for the paper: (b) Prop 4.2 for `s = 2` (`Band2*.lean`: the width-two band module `U_{m,2}` and
+the quotient `W_m ↠ Ind(W_{m-2} ⊠ U_{m,2})`); (c) Prop 5.3 with Lemma 2.1 transport; then the
+case (ii) assembly: iterated Pieri gives a nonzero `S^ν ⊠ M^θ → Res S^λ` (`θ` = strip sizes),
+`exists_specht_boxTensor_contentSub` picks `η`, Prop 5.3 puts `S^η` in `U_{m,2}`, Frobenius +
+`Occurs.of_surjective` finish.
 
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
