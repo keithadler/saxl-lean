@@ -32,3 +32,9 @@ No Specht modules, Pieri rule, Young's rule or Kronecker coefficients. Available
 `SemistandardTableau`, `Representation` (Induced, Irreducible, Maschke, Semisimple, Character,
 Intertwining, Subrepresentation). So milestones 1–3 are built from scratch, and "S^λ irreducible /
 exhaust irreps of S_n" is the biggest classical gap.
+
+## Strips.lean (in progress, paper Lemma 6.1)
+
+Done (compiles, no sorry): `HorizontalStrip`, `dropRow` (full sweep), `mem_dropRow`, `rowLen_dropRow`.
+Next: card of `dropRow`; suffix-of-columns removal (any t ≤ λ₁ gives a horizontal strip of size t);
+`StripChain` + induction for ≤ 4 strips; staircase row lengths/card; arithmetic (6.1)–(6.2); assemble.
