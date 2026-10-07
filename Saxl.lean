@@ -24,3 +24,4 @@ import Saxl.Orbit
 import Saxl.CastN
 import Saxl.RowSquares
 import Saxl.StaircasePairs
+import Saxl.QMap

@@ -164,8 +164,9 @@ orbit-span of the previous word so surjectivity is free), and `exists_extension_
 (`swapTableau`, row fibers, `pair_eq_of_content_eq`: a retained pair word equals the target word) are DONE.
 Also DONE: `Orbit.lean` (equal content ⇒ conjugate ⇒ same cyclic module; letter relabelling), `CastN.lean`
 (transport of `Occurs` along `Fin n ≃ Fin n'`), `transpose_staircase`.
-Remaining for Prop 3.2: the coefficient count of `Q(e_{t'} ⊗ e_{tᵀ})` at the target word (row reversal `ω`),
-the letterwise map `Q` + content projection, the twisted map `id ⊗ Θ` with `Z_m ⊆ (id⊗Θ)(W_m)`, and the
+`QMap.lean` DONE: `contentProj` (equivariant), row reversal `revPerm`, `qmap`, `pairWord_eq_target_iff`,
+and **`Q_pair`** (paper eq. 3.10): `Q(e_{t'} ⊗ e_{tᵀ}) = (|C|·sign ω) • e_{c₀}`, scalar nonzero.
+Remaining for Prop 3.2: the twisted map `id ⊗ Θ` with `Z_m ⊆ (id⊗Θ)(W_m)`, and the
 `Occurs` chain (`of_surjective` ×2, mono, `occurs_of_occurs_transpose`, `young_occurs` + cast + orbit).
 
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
