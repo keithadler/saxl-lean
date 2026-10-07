@@ -160,6 +160,14 @@ Original note: induct along `sizedChain_of_dominates`; per step combine
 orbit-span of the previous word so surjectivity is free), and `exists_extension_of_sectors`; conclude
 `Dominates τ θ → Occurs tτ (ℂ[S_n] e_{w_θ})`.
 
+**Prop 3.2 progress:** `RowSquares.lean` (sum-of-squares uniqueness, eq. 3.9) and `StaircasePairs.lean`
+(`swapTableau`, row fibers, `pair_eq_of_content_eq`: a retained pair word equals the target word) are DONE.
+Also DONE: `Orbit.lean` (equal content ⇒ conjugate ⇒ same cyclic module; letter relabelling), `CastN.lean`
+(transport of `Occurs` along `Fin n ≃ Fin n'`), `transpose_staircase`.
+Remaining for Prop 3.2: the coefficient count of `Q(e_{t'} ⊗ e_{tᵀ})` at the target word (row reversal `ω`),
+the letterwise map `Q` + content projection, the twisted map `id ⊗ Θ` with `Z_m ⊆ (id⊗Θ)(W_m)`, and the
+`Occurs` chain (`of_surjective` ×2, mono, `occurs_of_occurs_transpose`, `young_occurs` + cast + orbit).
+
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
 
