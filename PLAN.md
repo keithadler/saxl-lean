@@ -1,3 +1,18 @@
+# PLAN — CONCLUDED 7 Oct 2026
+
+Final state: our own proof covers everything up to Theorem 3.1 for `m ≤ 4` (`saxl_le4`), the
+classification of irreducibles of `S_n`, constituent extraction, and Prop 4.2 parts 1–3; the full
+statement is closed through OpenAI's vendored proof (`Saxl/OAI/`, bridge `Saxl/Complete.lean`).
+No further re-derivation planned.  Remaining live items:
+
+* Mathlib PRs #44612 and #44613 — respond to review; rebase #44613 if #43899 lands first.
+* Possible future upstreaming (ask on GitHub first): dominance order (`Dominance.lean`), the margin
+  lemma (`Band2Margin.lean`), Young's rule in occurrence form.
+
+Historical log follows.
+
+---
+
 # Formalising Saxl's conjecture
 
 Target: `OAI.Saxl.SaxlConjecture` (statement in `Saxl/Statement.lean`, copied from

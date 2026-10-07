@@ -1,5 +1,10 @@
 # Mathlib upstreaming of the counting inputs to the classification
 
+Note (7 Oct 2026): OpenAI's own Saxl formalisation (`openai/math`, `SpechtClassification.lean`)
+contains `S_n`-specific versions of both facts; the PRs generalise them to any finite group /
+package the equivalence, and are the first submissions of either to Mathlib.  No Zulip post was
+made (Keith cannot post there); communication is on the PRs only, kept technical.
+
 **Opened 7 Oct 2026 as two PRs** (split by reviewer area):
 
 * https://github.com/leanprover-community/mathlib4/pull/44612 — `feat(GroupTheory/Perm): conjugacy classes of Perm α are partitions of Fintype.card α` (branch `perm-conjclasses-partition`)

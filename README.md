@@ -4,6 +4,9 @@ An independent Lean 4 / Mathlib formalisation of OpenAI's preprint
 *A Cyclic Polytabloid Proof of Saxl's Conjecture* (24 Sep 2026, [`openai/math`](https://github.com/openai/math)),
 checked against the challenge statement that ships with that repository.
 
+**Status (7 Oct 2026): concluded.** The repository is complete in the sense below and is no longer
+being extended; the live work is the two Mathlib pull requests (see "Upstreaming to Mathlib").
+
 **Read this first.** OpenAI's repository contains its *own* complete Lean proof of the paper
 (`lean/OAI/RepresentationTheory/Saxl/`, 38 files, no `sorry`, pushed 6 Oct 2026). This project
 started a few hours later without noticing it, and re-derived roughly the first half of the proof
