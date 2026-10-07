@@ -50,9 +50,9 @@ theorem exists_pos_of_lt_rowLen {w : Fin n → Fin (μ.colLen 0)}
     {c : ℕ} (hcj : c < μ.rowLen j) : ∃ k, w k = j ∧ (t k).val.2 = c := by
   set L : Finset (Fin n) := Finset.univ.filter fun k => w k = j with hL
   have hLcard : L.card = μ.rowLen j := by
-    have := congrFun hc j
-    unfold content at this
-    rw [hL, this, content_rowWord]
+    have h := congrFun hc j
+    rw [content_rowWord] at h
+    exact h
   have himg : L.image (fun k => (t k).val.2) ⊆ Finset.range (μ.rowLen j) := by
     intro c' hc'
     rw [Finset.mem_image] at hc'

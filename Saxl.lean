@@ -8,3 +8,4 @@ import Saxl.Polytabloid
 import Saxl.MaschkeBridge
 import Saxl.Content
 import Saxl.Antisymmetrizer
+import Saxl.ColumnLemma
