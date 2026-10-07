@@ -43,4 +43,17 @@ for m ≥ 2, λ ⊢ N_m not dominated by ρ_m, either (i) a strip of size m leav
 (ii) m ≥ 5 and four strips of total size 2m-1 leave ν ⊢ N_{m-2}.  (Strips may be empty; the
 paper's "nonempty" is cosmetic.)
 
-Remaining: milestones 1–6 and 8.  Milestone 7 is now closed.
+## Young.lean — DONE (combinatorial half of paper Lemma 2.3), no sorry, standard axioms only
+
+`shave τ t` removes the bottom box of the `t` tallest columns (rightmost first among ties),
+defined by rows: `shaveRow τ t i = (τ_i - t) + min τ_{i+1} t`.  It is a horizontal strip of size `t`
+(`t ≤ τ_0`) and `rowSum (shave τ t) k + t = rowSum τ k + min τ_k t` (paper eq. 2.7).
+`SizedChain θ ℓ ν λ` : `ℓ` strips from `ν` to `λ`, the `k`-th of size `θ k`.
+**`sizedChain_of_dominates`** : `τ ⊵ θ`, `|τ| = |θ|` ⇒ `SizedChain θ.rowLen (rows θ) ⊥ τ`.
+**`dominates_of_sizedChain`** : converse; `SizedChain.colLen_zero_le` : after `k` strips ≤ `k` rows.
+Note: the existence direction never needs the "last row disappears" step — the `⊥` base case
+absorbs it.  Multiplicity-one of `S^θ` in `M^θ` (the chain is unique when `τ = θ`) is NOT done.
+
+Remaining: milestones 1–6 and 8.  Milestones 7 and the combinatorics of 3 are closed.
+The representation theory (Specht modules) is now the only thing standing between here and
+the dominance base case (Prop 3.2).
