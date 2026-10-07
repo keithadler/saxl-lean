@@ -24,7 +24,7 @@ Milestones 2–3 are classical but heavy; 5–7 are the paper's novel content.
 
 ## Status
 
-All milestones `sorry` / not started. `saxl_conjecture` is still `sorry`.
+Toolchain builds (Mathlib cache OK). Dominance.lean: `rowSum`, `Dominates`, refl, trans done. Everything else not started; `saxl_conjecture` is still `sorry`.
 
 ## Mathlib audit (pinned commit d13f23b)
 
