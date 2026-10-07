@@ -14,3 +14,4 @@ import Saxl.Branching
 import Saxl.BranchingHom
 import Saxl.Pieri
 import Saxl.Sectors
+import Saxl.ShapeInvariance

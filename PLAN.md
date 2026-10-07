@@ -97,6 +97,10 @@ in `W` — this is how Prop 4.2's band quotient feeds the induction.
 
 ## Next milestones (in order)
 
+**N0. Shape invariance — DONE** (`ShapeInvariance.lean`): `occurs_of_occurs : Occurs t V → Occurs t' V`
+for tableaux of the same shape (`shift`, conjugate column groups, `polytabloid_eq_wordRep`,
+`transport`).  Lets us pick convenient position labellings (row/column tableaux, strips at the end).
+
 **N1. Pieri-occurrence — DONE** (`Branching.lean`, `BranchingHom.lean`, `Pieri.lean`).
 `Pieri.lean`: `exists_extension` (Maschke extension of intertwiners out of a subrepresentation, any
 finite group), `pairRep` (`W ⊠ 1`), `resPair`, `exists_pair_intertwiner(_of_occurs)`, Frobenius via
