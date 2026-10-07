@@ -25,3 +25,10 @@ Milestones 2–3 are classical but heavy; 5–7 are the paper's novel content.
 ## Status
 
 All milestones `sorry` / not started. `saxl_conjecture` is still `sorry`.
+
+## Mathlib audit (pinned commit d13f23b)
+
+No Specht modules, Pieri rule, Young's rule or Kronecker coefficients. Available: `YoungDiagram`,
+`SemistandardTableau`, `Representation` (Induced, Irreducible, Maschke, Semisimple, Character,
+Intertwining, Subrepresentation). So milestones 1–3 are built from scratch, and "S^λ irreducible /
+exhaust irreps of S_n" is the biggest classical gap.
