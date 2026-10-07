@@ -6,3 +6,5 @@ import Saxl.Young
 import Saxl.Main
 import Saxl.Polytabloid
 import Saxl.MaschkeBridge
+import Saxl.Content
+import Saxl.Antisymmetrizer
