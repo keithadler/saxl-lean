@@ -177,6 +177,15 @@ Formerly remaining for Prop 3.2: the twisted map `id ⊗ Θ` with `Z_m ⊆ (id�
 `S^λ` (`λ ⊢ N_m`) occurs in `W_m` for the canonical tableau — no casts.  So the whole conjecture now
 reduces to Theorem 3.1 in the form `∀ λ ⊢ N_m, Occurs (canonicalTableau λ) W_m`.
 
+## Important finding (7 Oct 2026): case (ii) of Theorem 3.1 needs the classification of irreducibles
+The paper writes `A = Ind 1 ≅ ⊕ (S^η)^{a_η}` and picks an `η` with `≤ 4` rows: this uses that every
+irreducible `S_K`-representation is a Specht module (classification) and Young's rule's necessity
+direction.  Neither is formalised (Mathlib has Wedderburn–Artin over `ℂ` but no irreducible counting and
+no `S_n` classification).  Case (i) needs nothing new.  Since case (ii) only arises for `m ≥ 5`, the
+plan is: Prop 4.2 with `s = 1` ⇒ Theorem 3.1 for `m ≤ 4` ⇒ **Saxl for staircases up to size 10, fully
+formal**; the classification is a separate sub-project (route: Wedderburn–Artin + `dim Z(ℂ[G]) = #conj
+classes` + `#conj classes of S_n = p(n)` + Specht modules pairwise non-isomorphic via `κ_t`/dominance).
+
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
 
