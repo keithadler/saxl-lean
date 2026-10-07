@@ -100,6 +100,11 @@ in `W` — this is how Prop 4.2's band quotient feeds the induction.
 **N1. Pieri-occurrence** (`Branching.lean` + `Pieri.lean`).  PROGRESS: `Branching.lean` DONE —
 `embPair`, `StripTableau`, `nuTableau`, `extend`, `Φ` (`S_a`-equivariant), `symmPolytabloid` (`S_b`-fixed, in `S^λ`),
 and **`Φ_symmPolytabloid : Φ u = stripCount • e_{t_ν}`** with `stripCount_pos`.  This is sub-step (iii)'s core.
+`BranchingHom.lean` DONE: **`exists_branching_intertwiner`** — a nonzero `S_a`-intertwiner
+`S^ν → Res_{S_a} S^λ` with `S_b`-fixed image (sub-step (iii) complete).  Gotcha: apply
+`Occurs.of_surjective` only to one-level subtypes of the word space (a doubly nested subtype makes
+the `AddCommGroup`/`AddCommMonoid` diamond check time out); so `A = ℂ[S_a]u` lives in the ambient
+word space and is included into `S^λ` at the end.
 Original plan:  For `λ/ν` a horizontal strip with `|ν| = a`, `|λ| = a + b`:
 `Occurs ν W` (as `S_a`-rep) ⇒ `Occurs λ (Ind_{S_a × S_b}^{S_{a+b}} (W ⊠ 1))`.
 Sub-steps: (i) model `S_a × S_b ↪ S_{a+b}` and `Ind` via `Rep.ind`; (ii) Frobenius:
