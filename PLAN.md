@@ -24,7 +24,7 @@ Milestones 2–3 are classical but heavy; 5–7 are the paper's novel content.
 
 ## Status
 
-Toolchain builds (Mathlib cache OK). Dominance.lean: `rowSum`, `Dominates`, refl, trans done. Everything else not started; `saxl_conjecture` is still `sorry`.
+Toolchain builds. Dominance.lean DONE, no sorry, standard axioms only: dominance order, card-by-rows, column-sum = sum of min (rowLen, q), and `Dominates.transpose` (conjugation reverses dominance, paper eq. 2.1). Everything else not started; `saxl_conjecture` is still `sorry`.
 
 ## Mathlib audit (pinned commit d13f23b)
 
