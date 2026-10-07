@@ -1,7 +1,28 @@
 # Mathlib upstreaming of the counting inputs to the classification
 
-Fork: https://github.com/keithadler/mathlib4, branch `char-count-conjclasses-partition`,
-local clone `~/mathlib4-contrib`.  Two new files:
+**Opened 7 Oct 2026 as two PRs** (split by reviewer area):
+
+* https://github.com/leanprover-community/mathlib4/pull/44612 — `feat(GroupTheory/Perm): conjugacy classes of Perm α are partitions of Fintype.card α` (branch `perm-conjclasses-partition`)
+* https://github.com/leanprover-community/mathlib4/pull/44613 — `feat(RepresentationTheory): irreducible representations are bounded by conjugacy classes` (branch `character-count-conjclasses`)
+
+Fork: https://github.com/keithadler/mathlib4, local clone `~/mathlib4-contrib` (master cache fetched).
+Watch: plp127's #43899 refactors `FiniteDimensional` hypotheses in `Character.lean`; if it merges
+first, `CharacterCount.lean` needs its hypotheses adjusted.
+
+## Zulip post — paste into `#mathlib4` (title: "irreducibles ≤ conjugacy classes; Perm conjugacy classes ≃ partitions")
+
+I've opened two small PRs filling a gap in finite-group representation theory:
+
+1. #44613 `Representation.card_le_card_conjClasses`: over an algebraically closed field with `|G|` invertible, a family of pairwise non-isomorphic irreducible representations has at most `Nat.card (ConjClasses G)` members (their characters are linearly independent class functions, via the existing `char_orthonormal`). It's the upper-bound half of "number of irreducibles = number of conjugacy classes"; the span statement is still missing.
+2. #44612 `Equiv.Perm.conjClassesEquivPartition : ConjClasses (Perm α) ≃ (Fintype.card α).Partition`, packaging `Perm.partition`, `partition_eq_of_isConj` and `exists_with_cycleType_iff`.
+
+Context: with these two, "every irreducible representation of `S_n` is a Specht module" follows once Specht modules are shown pairwise non-isomorphic; I have that downstream in a formalisation of Saxl's conjecture (github.com/keithadler/saxl-lean) and wanted to upstream the Mathlib-independent parts first. Reviews welcome.
+
+---
+
+Original single-branch draft below (superseded).
+
+Two new files:
 
 * `Mathlib/RepresentationTheory/CharacterCount.lean`
 * `Mathlib/GroupTheory/Perm/ConjClassesPartition.lean`
