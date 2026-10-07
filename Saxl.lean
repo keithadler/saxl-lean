@@ -5,3 +5,4 @@ import Saxl.Strips
 import Saxl.Young
 import Saxl.Main
 import Saxl.Polytabloid
+import Saxl.MaschkeBridge

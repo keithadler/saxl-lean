@@ -71,6 +71,24 @@ is a generic lemma with explicit `(V := …) (W := …)` and letting `exact` che
 sign).  Uses `attribute [local instance] Fintype.ofFinite` to match the challenge's `Fintype` choice.
 Note: `openai/math` contains NO symmetric-group representation theory to reuse (checked 7 Oct 2026).
 
+## MaschkeBridge.lean — DONE, no sorry
+
+`occurs_of_intertwiner_to` : if `S^μ` is irreducible (hypothesis `[IsIrreducible (spechtRep t)]`)
+and there is a nonzero intertwiner `σ → S^μ`, then `Occurs t σ`.  Proof at the `Subrepresentation`
+level: complement of the kernel (Maschke, `exists_isCompl`), Schur (`surjective_or_eq_zero`),
+`IntertwiningMap.ofBijective`.  Also `polytabloid_mem_specht` and `⊥/⊤/⊓` membership helpers.
+Gotcha: `Module.Projective` over `ℂ[G]` on `asModule` hits the same instance-path wall; the
+subrepresentation lattice avoids it.
+
+## Plan for Specht irreducibility (milestone 1 core) — James's submodule theorem in the word model
+1. `Content.lean`: content of a word, `G`-invariance, `S^λ ≤ contentSub λ`.
+2. `Antisymmetrizer.lean`: `κ_t = Σ_{C_t} sign(g) g`, `κ_t {t} = e_t`, kills words with a repeated
+   letter in a column, self-adjoint for the Hermitian form on `WordSpace`.
+3. `ColumnLemma.lean`: a content-`λ` word with distinct letters in every column of `t` is
+   `rowWord t ∘ π⁻¹` for some `π ∈ C_t` (counting argument, induction on the letter).
+4. `SubmoduleTheorem.lean`: `κ_t u ∈ ℂ e_t` for `u` of content `λ`; `U ≤ M^λ` ⇒ `S^λ ≤ U` or
+   `U ⊥ S^λ`; positive-definiteness ⇒ `IsIrreducible (spechtRep t)`.
+
 Remaining: milestones 1–6.  Milestone 8 is reduced to Theorem 3.1 (`TensorSquareCovers`).
 The representation theory (Specht modules) is now the only thing standing between here and
 the dominance base case (Prop 3.2).
