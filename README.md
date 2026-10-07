@@ -48,5 +48,22 @@ lake build
 | `Saxl/ColumnLemma.lean` | content-`λ` column-distinct words are column permutations of the row word |
 | `Saxl/SubmoduleTheorem.lean` | James's submodule theorem; **Specht modules are irreducible** |
 | `Saxl/MaschkeBridge.lean` | occurrence passes across quotients onto irreducibles and along surjections |
+| `Saxl/Branching.lean`, `Saxl/Pieri*.lean`, `Saxl/Sectors.lean` | Pieri occurrence via strip tableaux, Frobenius reciprocity, the sector lemma (Lemma 4.1) |
+| `Saxl/ShapeInvariance.lean`, `Saxl/CastN.lean`, `Saxl/LetterInj.lean` | occurrence is independent of the tableau, the position set and the letter alphabet |
+| `Saxl/SignTwist.lean`, `Saxl/Young.lean`, `Saxl/YoungOccurs.lean` | sign twist / transpose, dominance chains, Young's rule (occurrence form) |
+| `Saxl/Prop32.lean` | Prop 3.2: `S^λ` occurs in `W_m` for every `λ ⊴ ρ_m` |
+| `Saxl/Bridge.lean` | `W_m ↪ S^{ρ_m} ⊗ S^{ρ_m}`; occurrence in `W_m` gives `TensorSquareCovers m` |
+| `Saxl/Strips.lean` | the horizontal-strip reduction (Lemma 6.1) |
+| `Saxl/Band1*.lean` | Prop 4.2 with `s = 1`: the width-one band cut `band1_step` |
+| `Saxl/Thm31Small.lean` | **Theorem 3.1 for `m ≤ 4`** and `saxl_le4`: Saxl's conjecture for staircases of size `≤ 10` |
 
-`PLAN.md` tracks what is done and the next milestones.
+## Status
+
+Fully machine-checked, with only `propext`, `Classical.choice`, `Quot.sound`:
+
+* `saxl_le4 : ∀ m, 1 ≤ m → m ≤ 4 → ∀ μ (hμ : μ.card = (staircase m).card), 0 < kronecker ρ_m ρ_m μ`
+  — Saxl's conjecture, in the challenge's own `kronecker`, for the staircases `(1)`, `(2,1)`,
+  `(3,2,1)`, `(4,3,2,1)` (all partitions of `1, 3, 6, 10`).
+
+Case (ii) of the paper's induction (only needed for `m ≥ 5`) uses the classification of irreducible
+`S_n`-representations, which is not yet formalised; see `PLAN.md` for the route.

@@ -190,8 +190,16 @@ classes` + `#conj classes of S_n = p(n)` + Specht modules pairwise non-isomorphi
 the transversal lemma `low_iff_band` (eqs. 4.6–4.7), the column shift and factorisation lemma
 `polytabloid_extendCol` (eq. 4.8), `Rpair_unmixedProj_wm` (`R(P₁ w_m) = c·w_{m-1}`), and **`band1_step`**:
 `Occurs ν W_{m-1} → HorizontalStrip ν λ → Occurs λ W_m` (via Pieri, the sector lemma and the projection).
-NEXT: Theorem 3.1 for `m ≤ 4` (induction using `prop32`, `strip_reduction`, `band1_step`, `Wm` is
-independent of the tableau) ⇒ `TensorSquareCovers m` for `m ≤ 4`.
+**Theorem 3.1 for `m ≤ 4` — DONE** (`Thm31Small.lean`, 7 Oct 2026): `Wm_eq` (`W_m` is independent of
+the staircase tableau), `occurs_Wm_castN` (transport of occurrence in `W_m` along a position bijection),
+`card_staircase_succ`, and `thm31_le4` by induction on `m` (`prop32` for the dominated case,
+`strip_reduction` + `band1_step` otherwise; case (ii) is excluded by `m ≤ 4`).  Hence
+**`tensorSquareCovers_le4`** and **`saxl_le4`**: `0 < kronecker ρ_m ρ_m μ` for every `μ ⊢ N_m`,
+`1 ≤ m ≤ 4` — Saxl's conjecture for staircases of size `≤ 10`, machine-checked against the challenge's
+own definitions with only the three permitted axioms.
+
+NEXT (to go past `m = 4`): either the classification route above, or Prop 4.2 for `s = 2` plus
+Prop 5.3 together with Lemma 2.1 transport; all three are needed for the paper's case (ii).
 
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
