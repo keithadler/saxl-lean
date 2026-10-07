@@ -37,3 +37,7 @@ import Saxl.ClassDiagram
 import Saxl.SpechtDistinct
 import Saxl.Classification
 import Saxl.Constituent
+import Saxl.Band2Margin
+import Saxl.Band2Transversal
+import Saxl.Band2Shift
+import Saxl.Band2Factor

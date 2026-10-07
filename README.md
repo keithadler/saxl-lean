@@ -49,7 +49,8 @@ The proof follows the paper's structure.  Ticks are fully proved; the rest is op
 | Lemma 6.1, horizontal-strip reduction | ✅ | `Strips` |
 | Prop 4.2 with `s = 1` (width-one band cut) | ✅ | `Band1`, `Band1Factor`, `Band1Assembly` |
 | **Theorem 3.1 for `m ≤ 4`; Saxl for `N_m ≤ 10`** | ✅ | `Thm31Small` |
-| Prop 4.2 with `s = 2` | ❌ | — |
+| Prop 4.2 for any width `s`: margin lemma, transversal, column rotation, band tableau, factorisation (eq. 4.8) | ✅ | `Band2Margin`, `Band2Transversal`, `Band2Shift`, `Band2Factor` |
+| Prop 4.2 with `s = 2`: assembly (`band2_step`) | ❌ | — |
 | Prop 5.3 and Lemma 2.1 transport / self-duality | ❌ | — |
 | `S^η ⊂ M^θ ⇒ η ⊵ θ`; Specht modules of different shapes are non-isomorphic | ✅ | `SpechtDistinct` |
 | Conjugacy classes of `S_n` embed into Young diagrams of size `n` | ✅ | `ClassDiagram` |
