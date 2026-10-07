@@ -148,6 +148,14 @@ equivariant for `tprod`).  Enables the paper's `(E ⊗ E)^{⊗B}` computations (
 `u ≠ 0` (coefficient `|H_R|` at the row word).  So eq. (3.5) is bypassed; Young's rule is only needed in
 occurrence form (`τ ⊵ θ ⇒ Occurs τ M^θ`), obtainable from `occurs_ind_of_occurs` + `exists_extension_of_sectors`.
 
+**N5-prep — DONE** (`WordSectors.lean`): `Subsets n b` with the transitive `S_n`-action, `lastPositions`,
+`embPair` presents its stabiliser (`exists_embPair_of_smul_eq`), sector projections `sectorProj` by the
+positions of a distinguished letter (disjoint, equivariant).  `Sectors.lean` no longer needs `Σ π_A = id`.
+NEXT: `YoungOccurs.lean` — induct along `sizedChain_of_dominates`; per step combine
+`exists_pair_intertwiner_of_occurs` (Pieri), the restriction map `A₀ ↠ W ⊠ 1` (take `W` = the cyclic
+orbit-span of the previous word so surjectivity is free), and `exists_extension_of_sectors`; conclude
+`Dominates τ θ → Occurs tτ (ℂ[S_n] e_{w_θ})`.
+
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
 

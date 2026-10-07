@@ -6,8 +6,9 @@ import Saxl.MaschkeBridge
 # Induction from coordinate sectors (paper Lemma 4.1, in "extension" form)
 
 Let a finite group `G` act transitively on a finite set `Ω`, and let `ρ` be a `G`-representation on
-`V` with equivariant sector projections `π A : V →ₗ V` (`A ∈ Ω`): `∑ π A = id`,
-`π A ∘ π B = 0` for `A ≠ B`, and `ρ g ∘ π A = π (g • A) ∘ ρ g`.  Fix `D ∈ Ω` with stabiliser `H`
+`V` with equivariant sector projections `π A : V →ₗ V` (`A ∈ Ω`):
+`π A ∘ π B = 0` for `A ≠ B`, and `ρ g ∘ π A = π (g • A) ∘ ρ g`.  Fix `D ∈ Ω`, a group `K` with
+`ι : K →* G` presenting the stabiliser of `D` (`ι k • D = D`, and every `g` fixing `D` is some `ι k`),
 and `z` with `π D z = z`.  Put `A₀ = ℂ[H] z`.  Then every `H`-intertwiner `φ : A₀ → Res_H S`
 extends to a `G`-intertwiner `ℂ[G] z → S`, namely `y ↦ ∑_A g_A • φ (g_A⁻¹ • π A y)` for coset
 representatives `g_A • D = A`.  (This is the universal property of `Ind_H^G A₀ ≅ ℂ[G] z`, which is
@@ -51,7 +52,6 @@ theorem z_mem_cycH : z ∈ cycH ρ z ι :=
   Submodule.subset_span ⟨1, by simp [resStab_apply]⟩
 
 variable [MulAction.IsPretransitive G Ω] (π : Ω → V →ₗ[ℂ] V)
-  (hsum : ∑ A, π A = LinearMap.id)
   (hdisj : ∀ A B, A ≠ B → π A ∘ₗ π B = 0)
   (hequiv : ∀ (g : G) (A : Ω), ρ g ∘ₗ π A = π (g • A) ∘ₗ ρ g)
   (hz : π D z = z)
@@ -87,15 +87,18 @@ theorem π_eq_zero_of_mem_cycH {y : V} (hy : y ∈ cycH ρ z ι) {A : Ω} (hA : 
   · intro x y _ _ hx hy; rw [map_add, hx, hy, add_zero]
   · intro c x _ hx; rw [map_smul, hx, smul_zero]
 
-include hsum hdisj hequiv hz hfix in
+include hequiv hz hfix in
 theorem π_D_of_mem_cycH {y : V} (hy : y ∈ cycH ρ z ι) : π D y = y := by
-  classical
-  have := congrArg (fun f => f y) hsum
-  simp only [LinearMap.sum_apply, LinearMap.id_apply] at this
-  rw [Finset.sum_eq_single D] at this
-  · exact this
-  · intro A _ hA; exact π_eq_zero_of_mem_cycH ρ D z ι π hdisj hequiv hz hfix hy hA
-  · intro h; exact absurd (Finset.mem_univ _) h
+  rw [mem_cycH_iff] at hy
+  refine Submodule.span_induction (p := fun y _ => π D y = y) ?_ ?_ ?_ ?_ hy
+  · rintro _ ⟨k, rfl⟩
+    dsimp only
+    rw [resStab_apply, π_ρ ρ π hequiv]
+    have : (ι k)⁻¹ • D = D := by rw [inv_smul_eq_iff, hfix k]
+    rw [this, hz]
+  · simp
+  · intro x y _ _ hx hy; rw [map_add, hx, hy]
+  · intro c x _ hx; rw [map_smul, hx]
 
 include hdisj hequiv hz hstab in
 /-- `g_A⁻¹ • π_A y ∈ A₀` for `y ∈ ℂ[G] z` and `g_A • D = A`. -/
@@ -156,7 +159,7 @@ theorem φext_ρ (k : K) {v : V} (hv : v ∈ cycH ρ z ι) :
   rw [φext_of_mem ρ z ι S φ hmem, φext_of_mem ρ z ι S φ hv]
   exact IntertwiningMap.isIntertwining _ _ φ k ⟨v, hv⟩
 
-include hsum hdisj hequiv hz hfix hstab in
+include hdisj hequiv hz hfix hstab in
 /-- **Lemma 4.1 (extension form)**: a `K`-intertwiner `A₀ → Res S` extends to a `G`-intertwiner
 `ℂ[G] z → S`. -/
 theorem exists_extension_of_sectors :
@@ -201,7 +204,7 @@ theorem exists_extension_of_sectors :
     simp only [hF]
     rw [Finset.sum_eq_single D]
     · obtain ⟨k₀, hk₀⟩ := hstab (gA D) (hgA D)
-      rw [π_D_of_mem_cycH ρ D z ι π hsum hdisj hequiv hz hfix hy, ← hk₀, ← map_inv,
+      rw [π_D_of_mem_cycH ρ D z ι π hequiv hz hfix hy, ← hk₀, ← map_inv,
         φext_ρ ρ z ι S φ k₀⁻¹ hy, ← Module.End.mul_apply, ← map_mul]
       simp
     · intro A _ hA
