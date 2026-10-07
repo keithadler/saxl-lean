@@ -134,8 +134,9 @@ the twisted intertwiner `Θ : M^λ ⊗ ε → M^{λᵗ}` defined on the orbit of
 `Θ(e_{rw∘g⁻¹}) = sign g • g • e_{tᵗ}` (well defined since `R_t = C_{tᵗ}` acts on `e_{tᵗ}` by signs),
 `Θ(e_t) = Σ_{h∈C_t} h • e_{tᵗ}` with coefficient `|C_t|` at the column word, and **`ΘS ≠ 0`**:
 a nonzero twisted intertwiner `S^λ ⊗ ε → S^{λᵗ}`.  No Young-symmetrizer theory needed.
-Part B (to do): irreducibility of the twist, bijectivity of `ΘS`, and the transfer lemmas
-`Occurs tᵗ (signTwist V) ↔ Occurs t V`.
+Part B DONE (`SignTwistOccurs.lean`): `isIrreducible_signTwist`, `ΘS_bijective`, `untwist`/`twist`,
+**`occurs_of_occurs_transpose`** and **`occurs_transpose_of_occurs`**: `Occurs tᵗ (V ⊗ ε) ↔ Occurs t V`.
+N3 is closed.
 
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
