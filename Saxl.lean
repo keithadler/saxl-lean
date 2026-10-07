@@ -30,3 +30,4 @@ import Saxl.TwistPair
 import Saxl.Prop32
 import Saxl.Bridge
 import Saxl.Band1
+import Saxl.Band1Factor
