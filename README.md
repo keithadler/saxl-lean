@@ -62,14 +62,30 @@ The three ❌ items are all needed for case (ii) of the paper's induction, which
 character orthogonality but no classification of irreducible `S_n`-representations; it is proved
 here by counting, with no Wedderburn–Artin.  `PLAN.md` records the route for the rest.
 
-Roughly 6,200 lines of Lean and 400 theorems.
+Roughly 6,900 lines of Lean and 430 theorems.
+
+## Upstreaming to Mathlib
+
+The two counting inputs to the classification are general and were missing from Mathlib; they are
+submitted as pull requests (opened 7 Oct 2026, sources in `contrib/`):
+
+* [mathlib4#44613](https://github.com/leanprover-community/mathlib4/pull/44613) —
+  `Representation.card_le_card_conjClasses`: over an algebraically closed field with `|G|`
+  invertible, pairwise non-isomorphic irreducible representations number at most
+  `Nat.card (ConjClasses G)` (their characters are linearly independent class functions).
+* [mathlib4#44612](https://github.com/leanprover-community/mathlib4/pull/44612) —
+  `Equiv.Perm.conjClassesEquivPartition : ConjClasses (Perm α) ≃ (Fintype.card α).Partition`.
+
+Specht modules themselves are not in Mathlib; `contrib/MATHLIB-PR.md` tracks the PRs.
 
 ## Two things learned along the way
 
 * Eq. (3.5) in the paper's proof of Prop 3.2 is not needed; the formal proof of `prop32` goes
   through without it (see `exists_Θ_uvec` in `Prop32.lean`).  A simplification, not an error.
 * The paper's case (ii) silently uses "every irreducible `S_K`-representation is a Specht module"
-  together with the necessity direction of Young's rule.  Neither is in Mathlib yet.
+  together with the necessity direction of Young's rule.  Neither was in Mathlib; both are now
+  proved here (`Classification.lean`, `SpechtDistinct.lean`) and the general parts are in the
+  Mathlib PRs above.
 
 ## Toolchain and building
 
