@@ -97,7 +97,13 @@ in `W` — this is how Prop 4.2's band quotient feeds the induction.
 
 ## Next milestones (in order)
 
-**N1. Pieri-occurrence** (`Branching.lean` + `Pieri.lean`).  PROGRESS: `Branching.lean` DONE —
+**N1. Pieri-occurrence — DONE** (`Branching.lean`, `BranchingHom.lean`, `Pieri.lean`).
+`Pieri.lean`: `exists_extension` (Maschke extension of intertwiners out of a subrepresentation, any
+finite group), `pairRep` (`W ⊠ 1`), `resPair`, `exists_pair_intertwiner(_of_occurs)`, Frobenius via
+`Rep.indResHomEquiv` (`exists_ind_intertwiner`), and **`occurs_ind_of_occurs`**:
+`Occurs ν W → Occurs λ (Rep.ind embPair (Rep.of (pairRep W))).ρ` for `λ/ν` a horizontal strip.
+This is the occurrence direction of the paper's Lemma 2.2, proved without Littlewood–Richardson.
+PROGRESS LOG: `Branching.lean` DONE —
 `embPair`, `StripTableau`, `nuTableau`, `extend`, `Φ` (`S_a`-equivariant), `symmPolytabloid` (`S_b`-fixed, in `S^λ`),
 and **`Φ_symmPolytabloid : Φ u = stripCount • e_{t_ν}`** with `stripCount_pos`.  This is sub-step (iii)'s core.
 `BranchingHom.lean` DONE: **`exists_branching_intertwiner`** — a nonzero `S_a`-intertwiner

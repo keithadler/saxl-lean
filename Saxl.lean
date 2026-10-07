@@ -12,3 +12,4 @@ import Saxl.ColumnLemma
 import Saxl.SubmoduleTheorem
 import Saxl.Branching
 import Saxl.BranchingHom
+import Saxl.Pieri
