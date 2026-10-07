@@ -86,6 +86,18 @@ subrepresentation lattice avoids it.
 3. `ColumnLemma.lean` — DONE: `ColumnDistinct`, `colPositions`, `exists_pos_of_lt_rowLen`, `lt_colLen_of_columnDistinct` (strong induction on the letter), **`exists_columnPerm`**.
 4. `SubmoduleTheorem.lean` — DONE: `kappa_single_mem_span`, `kappa_mem_span_of_mem_contentSub`, **`submodule_theorem`** (James), **`spechtRep_isIrreducible`** as an instance.  Specht modules are irreducible — the Maschke bridge now applies unconditionally.
 
+## Mathlib API available for induction (checked 7 Oct 2026)
+`Rep.ind`/`Rep.coind` with adjunctions `indResAdjunction`, `resCoindAdjunction`; for a finite-index
+subgroup `indCoindIso` and `resIndAdjunction` (so Ind is also right adjoint to Res).  Also
+`Representation.coind φ σ` as `G`-equivariant functions.  Frobenius reciprocity need not be rebuilt.
+
+## Shape of Theorem 3.1 in `Occurs` language
+`Occurs.of_surjective` (DONE): a surjection `W ↠ I` splits, so occurrence in `I` gives occurrence
+in `W` — this is how Prop 4.2's band quotient feeds the induction.  Still needed: Pieri-occurrence
+(`Occurs ν W` ⇒ `Occurs λ (Ind (W ⊠ 1))` for `λ/ν` a horizontal strip), Lemma 4.1, Prop 3.2
+(needs Young's rule with multiplicity one, sign twist, self-duality), Prop 5.3 (needs Lemma 2.1
+transport + self-duality).
+
 Remaining: milestones 1–6.  Milestone 8 is reduced to Theorem 3.1 (`TensorSquareCovers`).
 The representation theory (Specht modules) is now the only thing standing between here and
 the dominance base case (Prop 3.2).

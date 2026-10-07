@@ -81,4 +81,40 @@ theorem occurs_of_intertwiner_to [IsIrreducible (spechtRep t)] {V : Type*} [AddC
   rw [LinearEquiv.map_eq_zero_iff] at h3
   exact hx h3
 
+/-- Occurrence passes backwards along surjective intertwiners (the surjection splits). -/
+theorem Occurs.of_surjective {V W : Type*} [AddCommGroup V] [Module ℂ V] [AddCommGroup W]
+    [Module ℂ W] {σ : Representation ℂ (Equiv.Perm (Fin n)) V}
+    {τ : Representation ℂ (Equiv.Perm (Fin n)) W} (π : IntertwiningMap σ τ)
+    (hπ : Function.Surjective π) (h : Occurs t τ) : Occurs t σ := by
+  have : NeZero (Nat.card (Equiv.Perm (Fin n)) : ℂ) := ⟨by exact_mod_cast Nat.card_pos.ne'⟩
+  obtain ⟨f, hf⟩ := h
+  obtain ⟨Q, hQ⟩ := exists_isCompl π.ker
+  let g : IntertwiningMap Q.toRepresentation τ := π.comp (inclusion Q)
+  have hg : ∀ x : Q.toSubmodule, g x = π x := fun _ => rfl
+  have hinj : Function.Injective g := by
+    intro x y hxy
+    have h1 : ((x - y : Q.toSubmodule) : V) ∈ π.ker ⊓ Q := by
+      rw [subrep_mem_inf]
+      refine ⟨?_, (x - y).2⟩
+      rw [IntertwiningMap.mem_ker, Submodule.coe_sub, map_sub, ← hg, ← hg, hxy, sub_self]
+    rw [hQ.inf_eq_bot, subrep_mem_bot, Submodule.coe_sub, sub_eq_zero] at h1
+    exact Subtype.ext h1
+  have hsurj : Function.Surjective g := by
+    intro w
+    obtain ⟨v, rfl⟩ := hπ w
+    have hv : v ∈ π.ker ⊔ Q := by rw [hQ.sup_eq_top]; exact subrep_mem_top v
+    rw [← SetLike.mem_coe, Subrepresentation.coe_sup] at hv
+    obtain ⟨k, hk, q, hq, rfl⟩ := Set.mem_add.1 hv
+    refine ⟨⟨q, hq⟩, ?_⟩
+    show π q = π (k + q)
+    rw [map_add, (IntertwiningMap.mem_ker _ _ π k).1 hk, zero_add]
+  let e := g.ofBijective ⟨hinj, hsurj⟩
+  refine ⟨(inclusion Q).comp (e.symm.toIntertwiningMap.comp f), fun h0 => hf ?_⟩
+  refine DFunLike.ext f 0 fun x => ?_
+  have h1 : (((inclusion Q).comp (e.symm.toIntertwiningMap.comp f)) x : V) = 0 := by rw [h0]; rfl
+  have h2 : (e.symm.toIntertwiningMap (f x) : V) = 0 := h1
+  have h3 : e.toLinearEquiv.symm (f x) = 0 := Subtype.ext h2
+  rw [LinearEquiv.map_eq_zero_iff] at h3
+  exact h3
+
 end OAI.Saxl
