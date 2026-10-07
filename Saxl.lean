@@ -36,3 +36,4 @@ import Saxl.Thm31Small
 import Saxl.ClassDiagram
 import Saxl.SpechtDistinct
 import Saxl.Classification
+import Saxl.Constituent
