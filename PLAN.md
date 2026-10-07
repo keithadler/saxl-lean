@@ -33,8 +33,14 @@ No Specht modules, Pieri rule, Young's rule or Kronecker coefficients. Available
 Intertwining, Subrepresentation). So milestones 1–3 are built from scratch, and "S^λ irreducible /
 exhaust irreps of S_n" is the biggest classical gap.
 
-## Strips.lean (in progress, paper Lemma 6.1)
+## Staircase.lean + Strips.lean — DONE (paper Lemma 6.1), no sorry, standard axioms only
 
-Done (compiles, no sorry): `HorizontalStrip`, `dropRow` (full sweep), `mem_dropRow`, `rowLen_dropRow`.
-Next: card of `dropRow`; suffix-of-columns removal (any t ≤ λ₁ gives a horizontal strip of size t);
-`StripChain` + induction for ≤ 4 strips; staircase row lengths/card; arithmetic (6.1)–(6.2); assemble.
+`Staircase.lean`: `rowLen`/`colLen` of `staircase m`, `2·rowSum ρ_m k = k(2m+1-k)`, `rowSum ≤ card`.
+`Strips.lean`: `HorizontalStrip`, full sweep `dropRow`, partial sweep `removeSuffix` (both are strips,
+with exact card drops), `StripChain q ν λ`, `exists_stripChain_of_le_rowSum` (K ≤ λ₁+…+λ_q boxes
+removable in q strips), the mean argument `4·rowSum k ≤ k·rowSum 4`, and **`strip_reduction`**:
+for m ≥ 2, λ ⊢ N_m not dominated by ρ_m, either (i) a strip of size m leaves ν ⊢ N_{m-1}, or
+(ii) m ≥ 5 and four strips of total size 2m-1 leave ν ⊢ N_{m-2}.  (Strips may be empty; the
+paper's "nonempty" is cosmetic.)
+
+Remaining: milestones 1–6 and 8.  Milestone 7 is now closed.

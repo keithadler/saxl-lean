@@ -130,4 +130,9 @@ theorem Dominates.transpose {lam mu : YoungDiagram} (h : Dominates lam mu)
   have c := h (mu.colLen q)
   omega
 
+theorem nat_eq_of_lt_iff {a b : ℕ} (h : ∀ j, j < a ↔ j < b) : a = b := by
+  apply le_antisymm <;> apply Nat.le_of_not_lt <;> intro hh
+  · exact lt_irrefl _ ((h _).1 hh)
+  · exact lt_irrefl _ ((h _).2 hh)
+
 end OAI.Saxl
