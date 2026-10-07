@@ -25,3 +25,5 @@ import Saxl.CastN
 import Saxl.RowSquares
 import Saxl.StaircasePairs
 import Saxl.QMap
+import Saxl.LetterInj
+import Saxl.TwistPair
