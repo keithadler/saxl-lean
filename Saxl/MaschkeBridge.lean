@@ -16,6 +16,7 @@ open Representation
 
 variable {n : ℕ} {μ : YoungDiagram} (t : Tableau n μ)
 
+/-- The polytabloid generates, hence lies in, its Specht module. -/
 theorem polytabloid_mem_specht : polytabloid t ∈ Specht t :=
   Submodule.subset_span ⟨1, by simp⟩
 
@@ -24,19 +25,23 @@ section lattice
 variable {G : Type*} {V : Type*} [Group G] [AddCommGroup V] [Module ℂ V]
   {ρ : Representation ℂ G V}
 
+/-- Membership in a meet of subrepresentations. -/
 theorem subrep_mem_inf {ρ₁ ρ₂ : Subrepresentation ρ} {x : V} :
     x ∈ ρ₁ ⊓ ρ₂ ↔ x ∈ ρ₁ ∧ x ∈ ρ₂ := by
   rw [← SetLike.mem_coe, Subrepresentation.coe_inf]
   exact Set.mem_inter_iff _ _ _
 
+/-- Membership in the zero subrepresentation. -/
 theorem subrep_mem_bot {x : V} : x ∈ (⊥ : Subrepresentation ρ) ↔ x = 0 :=
   Submodule.mem_bot ℂ
 
+/-- Everything lies in the top subrepresentation. -/
 theorem subrep_mem_top (x : V) : x ∈ (⊤ : Subrepresentation ρ) :=
   Submodule.mem_top
 
 end lattice
 
+/-- A nonzero intertwiner onto an irreducible `S^μ` splits (Maschke + Schur), so `S^μ` occurs. -/
 theorem occurs_of_intertwiner_to [IsIrreducible (spechtRep t)] {V : Type*} [AddCommGroup V]
     [Module ℂ V] {σ : Representation ℂ (Equiv.Perm (Fin n)) V}
     (f : IntertwiningMap σ (spechtRep t)) (hf : f ≠ 0) : Occurs t σ := by

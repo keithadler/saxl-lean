@@ -20,6 +20,7 @@ variable {n d : ℕ}
 /-- Number of positions of `w` carrying the letter `i`. -/
 def content (w : Fin n → Fin d) (i : Fin d) : ℕ := (Finset.univ.filter fun j => w j = i).card
 
+/-- Precomposing with a permutation of positions preserves content. -/
 theorem content_comp_perm (w : Fin n → Fin d) (g : Perm (Fin n)) :
     content (w ∘ g) = content w := by
   ext i
@@ -37,9 +38,11 @@ def contentSub (c : Fin d → ℕ) : Subrepresentation (wordRep n d) where
     show f (w ∘ g) = 0
     exact hf _ (by rwa [content_comp_perm])
 
+/-- Unfolding membership in `contentSub c`. -/
 theorem mem_contentSub {c : Fin d → ℕ} {f : WordSpace n d} :
     f ∈ contentSub c ↔ ∀ w, content w ≠ c → f w = 0 := Iff.rfl
 
+/-- A basis word lies in the content space of its own content. -/
 theorem single_mem_contentSub (w : Fin n → Fin d) :
     (Pi.single w (1 : ℂ) : WordSpace n d) ∈ contentSub (content w) := by
   intro w' hw'
@@ -47,6 +50,7 @@ theorem single_mem_contentSub (w : Fin n → Fin d) :
 
 variable {μ : YoungDiagram} (t : Tableau n μ)
 
+/-- The polytabloid has the content of its row word. -/
 theorem polytabloid_mem_contentSub :
     polytabloid t ∈ contentSub (content (rowWord t)) := by
   rw [polytabloid_eq_sum]
@@ -54,6 +58,7 @@ theorem polytabloid_mem_contentSub :
   have := single_mem_contentSub (n := n) (rowWord t ∘ ((g : Perm (Fin n))⁻¹ : Perm (Fin n)))
   rwa [content_comp_perm] at this
 
+/-- `S^λ ≤ M^λ`: the Specht module lies in the content-`λ` subrepresentation. -/
 theorem spechtSub_le_contentSub :
     (spechtSub t).toSubmodule ≤ (contentSub (content (rowWord t))).toSubmodule := by
   refine Submodule.span_le.2 ?_

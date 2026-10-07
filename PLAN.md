@@ -93,11 +93,31 @@ subgroup `indCoindIso` and `resIndAdjunction` (so Ind is also right adjoint to R
 
 ## Shape of Theorem 3.1 in `Occurs` language
 `Occurs.of_surjective` (DONE): a surjection `W ↠ I` splits, so occurrence in `I` gives occurrence
-in `W` — this is how Prop 4.2's band quotient feeds the induction.  Still needed: Pieri-occurrence
-(`Occurs ν W` ⇒ `Occurs λ (Ind (W ⊠ 1))` for `λ/ν` a horizontal strip), Lemma 4.1, Prop 3.2
-(needs Young's rule with multiplicity one, sign twist, self-duality), Prop 5.3 (needs Lemma 2.1
-transport + self-duality).
+in `W` — this is how Prop 4.2's band quotient feeds the induction.
+
+## Next milestones (in order)
+
+**N1. Pieri-occurrence** (`Pieri.lean`).  For `λ/ν` a horizontal strip with `|ν| = a`, `|λ| = a + b`:
+`Occurs ν W` (as `S_a`-rep) ⇒ `Occurs λ (Ind_{S_a × S_b}^{S_{a+b}} (W ⊠ 1))`.
+Sub-steps: (i) model `S_a × S_b ↪ S_{a+b}` and `Ind` via `Rep.ind`; (ii) Frobenius:
+`Hom_{S_n}(Ind(S^ν ⊠ 1), S^λ) ≅ Hom_{S_a×S_b}(S^ν ⊠ 1, Res S^λ)` (`Rep.indResAdjunction`);
+(iii) **branching**: a nonzero `S_a × S_b`-map `S^ν ⊠ 1 → Res S^λ` — construct it in the word model
+from a `λ`-tableau whose last `b` positions fill the strip, symmetrising over `S_b`;
+(iv) `occurs_of_intertwiner_to` + functoriality of `Ind` in `W`.
+
+**N2. Lemma 4.1** (`Sectors.lean`): transitive `G`-set `Ω`, `T = ⊕_{A∈Ω} T_A`, `g T_A = T_{gA}`,
+`z ∈ T_D`, `A₀ = ℂ[H] z` ⇒ `Ind_H^G A₀ ≅ ℂ[G] z`.  State with `Representation.coind` or `Rep.ind`.
+
+**N3. Sign twist** (`SignTwist.lean`): `S^λ ⊗ ε ≅ S^{λᵗ}` in the word model (paper eq. 2.3).
+
+**N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
+tensors for any ordered basis of a dual space span a copy of `S^θ`.
+
+**N5. Young's rule, multiplicity one** (`YoungMult.lean`): `dim Hom(S^θ, M^θ) = 1`
+(`Hom(M^θ, S^θ) ≅ (S^θ)^{S_θ}` via Frobenius, plus uniqueness of the chain from `Young.lean`).
+
+**N6. Prop 3.2** (dominance base case), **Prop 4.2** (band quotient, uses N2), **Prop 5.3** (uses
+N4), then **Theorem 3.1** by induction on `m` using `strip_reduction`, N1, `Occurs.of_surjective`,
+and finally `saxlConjecture_of_covers`.
 
 Remaining: milestones 1–6.  Milestone 8 is reduced to Theorem 3.1 (`TensorSquareCovers`).
-The representation theory (Specht modules) is now the only thing standing between here and
-the dominance base case (Prop 3.2).

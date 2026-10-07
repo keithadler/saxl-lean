@@ -19,9 +19,11 @@ attribute [local instance] Fintype.ofFinite
 
 variable {n d : ℕ}
 
+/-- Unfolding the position action: `(g • f) a = f (a ∘ g)`. -/
 theorem wordRep_apply (g : Perm (Fin n)) (f : WordSpace n d) (a : Fin n → Fin d) :
     wordRep n d g f a = f (a ∘ g) := rfl
 
+/-- The position action permutes basis words: `g • e_w = e_{w ∘ g⁻¹}`. -/
 theorem wordRep_single (g : Perm (Fin n)) (w : Fin n → Fin d) :
     wordRep n d g (Pi.single w (1 : ℂ)) = Pi.single (w ∘ (g⁻¹ : Perm (Fin n))) 1 := by
   ext a
@@ -35,8 +37,10 @@ theorem wordRep_single (g : Perm (Fin n)) (w : Fin n → Fin d) :
 
 variable {μ : YoungDiagram} (t : Tableau n μ)
 
+/-- The row word records the row index of each position's cell. -/
 theorem rowWord_apply (i : Fin n) : (rowWord t i : ℕ) = (t i).val.1 := rfl
 
+/-- Unfolding membership in the column group. -/
 theorem mem_columnGroup {g : Perm (Fin n)} :
     g ∈ columnGroup t ↔ ∀ i, (t (g i)).val.2 = (t i).val.2 := Iff.rfl
 
@@ -61,6 +65,7 @@ theorem polytabloid_eq_sum :
   unfold polytabloid
   simp only [wordRep_single]
 
+/-- The coefficient of `polytabloid t` at its own row word is `1`. -/
 theorem polytabloid_apply_rowWord : polytabloid t (rowWord t) = 1 := by
   rw [polytabloid_eq_sum, Finset.sum_apply]
   rw [Finset.sum_eq_single (1 : columnGroup t)]
@@ -76,6 +81,7 @@ theorem polytabloid_apply_rowWord : polytabloid t (rowWord t) = 1 := by
     rw [Pi.smul_apply, Pi.single_eq_of_ne hne.symm, smul_zero]
   · intro h; exact absurd (Finset.mem_univ _) h
 
+/-- Polytabloids are nonzero. -/
 theorem polytabloid_ne_zero : polytabloid t ≠ 0 := fun h => by
   have := polytabloid_apply_rowWord t
   rw [h] at this

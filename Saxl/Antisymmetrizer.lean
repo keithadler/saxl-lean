@@ -24,15 +24,18 @@ variable {n d : ℕ} {μ : YoungDiagram} (t : Tableau n μ)
 noncomputable def kappa (d : ℕ) : WordSpace n d →ₗ[ℂ] WordSpace n d :=
   ∑ g : columnGroup t, (((Perm.sign (g : Perm (Fin n))) : ℤ) : ℂ) • wordRep n d (g : Perm (Fin n))
 
+/-- Unfolding `κ_t` on a vector. -/
 theorem kappa_apply (v : WordSpace n d) :
     kappa t d v = ∑ g : columnGroup t,
       (((Perm.sign (g : Perm (Fin n))) : ℤ) : ℂ) • wordRep n d (g : Perm (Fin n)) v := by
   simp [kappa, LinearMap.sum_apply]
 
+/-- `κ_t {t} = e_t`: the polytabloid is the antisymmetrised row word. -/
 theorem kappa_single_rowWord :
     kappa t (μ.colLen 0) (Pi.single (rowWord t) 1) = polytabloid t := by
   rw [kappa_apply]; rfl
 
+/-- `sign g * sign g = 1` in `ℂ`. -/
 theorem sign_sq (g : Perm (Fin n)) :
     ((Perm.sign g : ℤ) : ℂ) * ((Perm.sign g : ℤ) : ℂ) = 1 := by
   rw [← Int.cast_mul, ← Units.val_mul, Int.units_mul_self, Units.val_one, Int.cast_one]
@@ -79,18 +82,23 @@ theorem kappa_single_eq_zero {w : Fin n → Fin d} {i j : Fin n} (hij : i ≠ j)
 /-- Standard Hermitian form on the word space, antilinear in the first slot. -/
 noncomputable def form (u v : WordSpace n d) : ℂ := ∑ w, star (u w) * v w
 
+/-- `form` is additive in the first slot. -/
 theorem form_add_left (u u' v : WordSpace n d) : form (u + u') v = form u v + form u' v := by
   simp [form, add_mul, Finset.sum_add_distrib]
 
+/-- `form` is conjugate-linear in the first slot. -/
 theorem form_smul_left (c : ℂ) (u v : WordSpace n d) : form (c • u) v = star c * form u v := by
   simp [form, Finset.mul_sum, mul_assoc]
 
+/-- `form` is additive in the second slot. -/
 theorem form_add_right (u v v' : WordSpace n d) : form u (v + v') = form u v + form u v' := by
   simp [form, mul_add, Finset.sum_add_distrib]
 
+/-- `form` is linear in the second slot. -/
 theorem form_smul_right (c : ℂ) (u v : WordSpace n d) : form u (c • v) = c * form u v := by
   simp [form, Finset.mul_sum, mul_left_comm]
 
+/-- `form` commutes with finite sums in the first slot. -/
 theorem form_sum_left {ι : Type*} (s : Finset ι) (f : ι → WordSpace n d) (v : WordSpace n d) :
     form (∑ i ∈ s, f i) v = ∑ i ∈ s, form (f i) v := by
   classical
@@ -98,6 +106,7 @@ theorem form_sum_left {ι : Type*} (s : Finset ι) (f : ι → WordSpace n d) (v
   | empty => simp [form]
   | insert a s ha ih => rw [Finset.sum_insert ha, form_add_left, ih, Finset.sum_insert ha]
 
+/-- `form` commutes with finite sums in the second slot. -/
 theorem form_sum_right {ι : Type*} (s : Finset ι) (u : WordSpace n d) (f : ι → WordSpace n d) :
     form u (∑ i ∈ s, f i) = ∑ i ∈ s, form u (f i) := by
   classical
@@ -112,6 +121,7 @@ theorem form_wordRep (g : Perm (Fin n)) (u v : WordSpace n d) :
   exact Fintype.sum_equiv (Equiv.arrowCongr g.symm (Equiv.refl (Fin d))) _ _
     fun w => rfl
 
+/-- Moving the group action across `form`: `form (g u) v = form u (g⁻¹ v)`. -/
 theorem form_wordRep_left (g : Perm (Fin n)) (u v : WordSpace n d) :
     form (wordRep n d g u) v = form u (wordRep n d g⁻¹ v) := by
   conv_lhs => rw [← form_wordRep g⁻¹]

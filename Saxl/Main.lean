@@ -30,6 +30,7 @@ def inclusion {G : Type*} {V : Type uV} [Group G] [AddCommMonoid V] [Module ℂ 
   toLinearMap := W.toSubmodule.subtype
   isIntertwining' g := by ext; rfl
 
+/-- The inclusion intertwiner is injective. -/
 theorem inclusion_injective {G : Type*} {V : Type uV} [Group G] [AddCommMonoid V]
     [Module ℂ V] {ρ : Representation ℂ G V} (W : Subrepresentation ρ) :
     Function.Injective (inclusion W) :=

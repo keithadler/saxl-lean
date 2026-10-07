@@ -25,9 +25,11 @@ def ColumnDistinct (w : Fin n → Fin (μ.colLen 0)) : Prop :=
 /-- Positions lying in column `c` of `t`. -/
 def colPositions (c : ℕ) : Finset (Fin n) := Finset.univ.filter fun k => (t k).val.2 = c
 
+/-- Unfolding membership in `colPositions t c`. -/
 theorem mem_colPositions {c : ℕ} {k : Fin n} : k ∈ colPositions t c ↔ (t k).val.2 = c := by
   simp [colPositions]
 
+/-- Column `c` of `t` has `colLen c` positions. -/
 theorem card_colPositions (c : ℕ) : (colPositions t c).card = μ.colLen c := by
   rw [colLen_eq_card]
   refine Finset.card_bij (fun k _ => (t k).val) ?_ ?_ ?_

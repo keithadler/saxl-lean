@@ -64,6 +64,7 @@ theorem kappa_mem {U : Subrepresentation (wordRep n d)} {u : WordSpace n d} (hu 
   rw [kappa_apply]
   exact Submodule.sum_mem _ fun g _ => Submodule.smul_mem _ _ (U.apply_mem_toSubmodule _ hu)
 
+/-- Moving the group action across `form`: `form u (g v) = form (g⁻¹ u) v`. -/
 theorem form_wordRep_right (g : Perm (Fin n)) (u v : WordSpace n d) :
     form u (wordRep n d g v) = form (wordRep n d g⁻¹ u) v := by
   rw [form_wordRep_left, inv_inv]
@@ -106,6 +107,7 @@ noncomputable def liftSub (W : Subrepresentation (spechtRep t)) : Subrepresentat
     obtain ⟨x, hx, rfl⟩ := hv
     exact ⟨spechtRep t g x, W.apply_mem_toSubmodule g hx, rfl⟩
 
+/-- Membership in the lifted subrepresentation. -/
 theorem mem_liftSub {W : Subrepresentation (spechtRep t)} {v : WordSpace n d} :
     v ∈ liftSub t W ↔ ∃ x ∈ W, (x : WordSpace n d) = v := by
   show v ∈ W.toSubmodule.map (Specht t).subtype ↔ _

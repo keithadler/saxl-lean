@@ -8,16 +8,20 @@ namespace OAI.Saxl
 
 open YoungDiagram
 
+/-- Cells of `staircase m` are the `(i, j)` with `i + j < m`. -/
 theorem mem_staircase {m i j : ℕ} : (i, j) ∈ staircase m ↔ i < m ∧ j < m ∧ i + j < m := by
   rw [← mem_cells]
   simp [staircase, and_assoc]
 
+/-- Row `i` of `staircase m` has length `m - i`. -/
 theorem rowLen_staircase (m i : ℕ) : (staircase m).rowLen i = m - i :=
   nat_eq_of_lt_iff fun j => by rw [← mem_iff_lt_rowLen, mem_staircase]; omega
 
+/-- Column `j` of `staircase m` has length `m - j`. -/
 theorem colLen_staircase (m j : ℕ) : (staircase m).colLen j = m - j :=
   nat_eq_of_lt_iff fun i => by rw [← mem_iff_lt_colLen, mem_staircase]; omega
 
+/-- `rowSum (staircase m) k = ∑_{i<k} (m - i)`. -/
 theorem rowSum_staircase (m k : ℕ) : rowSum (staircase m) k = ∑ i ∈ Finset.range k, (m - i) := by
   unfold rowSum; simp only [rowLen_staircase]
 
@@ -35,6 +39,7 @@ theorem two_mul_rowSum_staircase (m : ℕ) {k : ℕ} (hk : k ≤ m) :
       ring
     exact this
 
+/-- `N_m = |staircase m|` is the sum of its `m` rows. -/
 theorem card_staircase (m : ℕ) : (staircase m).card = rowSum (staircase m) m := by
   rw [rowSum, sum_rowLen_eq_card]
   rw [colLen_staircase]; omega

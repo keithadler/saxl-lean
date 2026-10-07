@@ -19,8 +19,10 @@ def Dominates (lam mu : YoungDiagram) : Prop := ∀ k, rowSum mu k ≤ rowSum la
 
 namespace Dominates
 
+/-- Dominance is reflexive. -/
 theorem refl (lam : YoungDiagram) : Dominates lam lam := fun _ => le_rfl
 
+/-- Dominance is transitive. -/
 theorem trans {a b c : YoungDiagram} (h₁ : Dominates a b) (h₂ : Dominates b c) :
     Dominates a c := fun k => (h₂ k).trans (h₁ k)
 
@@ -34,6 +36,7 @@ theorem rowLen_eq_zero_of_le {μ : YoungDiagram} {i : ℕ} (h : μ.colLen 0 ≤ 
   rw [mem_iff_lt_colLen] at this
   omega
 
+/-- A `List.range` sum is the corresponding `Finset.range` sum. -/
 theorem list_sum_range_map (f : ℕ → ℕ) (n : ℕ) :
     ((List.range n).map f).sum = ∑ i ∈ Finset.range n, f i := by
   induction n with
@@ -130,6 +133,7 @@ theorem Dominates.transpose {lam mu : YoungDiagram} (h : Dominates lam mu)
   have c := h (mu.colLen q)
   omega
 
+/-- Two naturals with the same strict lower cuts are equal (used to identify `rowLen`/`colLen`). -/
 theorem nat_eq_of_lt_iff {a b : ℕ} (h : ∀ j, j < a ↔ j < b) : a = b := by
   apply le_antisymm <;> apply Nat.le_of_not_lt <;> intro hh
   · exact lt_irrefl _ ((h _).1 hh)

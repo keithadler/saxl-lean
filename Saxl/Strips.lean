@@ -30,6 +30,7 @@ def dropRow (lam : YoungDiagram) : YoungDiagram where
     · have := hxy.1; simp at this ⊢; omega
     · exact hxy.2
 
+/-- `(i, j) ∈ dropRow λ ↔ (i + 1, j) ∈ λ`. -/
 theorem mem_dropRow {lam : YoungDiagram} {i j : ℕ} : (i, j) ∈ dropRow lam ↔ (i + 1, j) ∈ lam := by
   rw [← mem_cells, ← mem_cells (μ := lam)]
   simp only [dropRow, Finset.mem_image, Finset.mem_filter, Prod.exists, Prod.mk.injEq]
@@ -40,10 +41,12 @@ theorem mem_dropRow {lam : YoungDiagram} {i j : ℕ} : (i, j) ∈ dropRow lam �
   · intro h
     exact ⟨i + 1, j, ⟨h, by simp⟩, by simp, rfl⟩
 
+/-- Row `i` of `dropRow λ` is row `i + 1` of `λ`. -/
 theorem rowLen_dropRow (lam : YoungDiagram) (i : ℕ) : (dropRow lam).rowLen i = lam.rowLen (i + 1) :=
   nat_eq_of_lt_iff fun j => by
     rw [← mem_iff_lt_rowLen, ← mem_iff_lt_rowLen, mem_dropRow]
 
+/-- `dropRow` has strictly fewer rows unless it is empty. -/
 theorem colLen_dropRow_zero_succ (lam : YoungDiagram) :
     (dropRow lam).colLen 0 + 1 ≤ lam.colLen 0 ∨ (dropRow lam).colLen 0 = 0 := by
   rcases Nat.eq_zero_or_pos ((dropRow lam).colLen 0) with h | h
@@ -54,6 +57,7 @@ theorem colLen_dropRow_zero_succ (lam : YoungDiagram) :
     rw [mem_dropRow, mem_iff_lt_colLen] at this
     omega
 
+/-- `|λ| = |dropRow λ| + λ₀`. -/
 theorem card_dropRow (lam : YoungDiagram) : lam.card = (dropRow lam).card + lam.rowLen 0 := by
   have h1 : (dropRow lam).colLen 0 ≤ lam.colLen 0 := by
     rcases colLen_dropRow_zero_succ lam with h | h <;> omega
@@ -106,11 +110,13 @@ def removeSuffix (lam : YoungDiagram) (t : ℕ) : YoungDiagram where
       have h2 := hxy.1
       omega
 
+/-- Membership in `removeSuffix λ t`: cells of `λ` not at the bottom of one of the rightmost `t` columns. -/
 theorem mem_removeSuffix {lam : YoungDiagram} {t i j : ℕ} :
     (i, j) ∈ removeSuffix lam t ↔ (i, j) ∈ lam ∧ (j < lam.rowLen 0 - t ∨ i + 1 < lam.colLen j) := by
   rw [← mem_cells, ← mem_cells (μ := lam)]
   simp [removeSuffix]
 
+/-- `removeSuffix` shortens exactly the rightmost `t` columns by one box. -/
 theorem colLen_removeSuffix (lam : YoungDiagram) (t j : ℕ) :
     (removeSuffix lam t).colLen j =
       if j < lam.rowLen 0 - t then lam.colLen j else lam.colLen j - 1 := by
@@ -119,12 +125,14 @@ theorem colLen_removeSuffix (lam : YoungDiagram) (t j : ℕ) :
   rw [← mem_iff_lt_colLen, mem_removeSuffix, mem_iff_lt_colLen]
   split_ifs <;> omega
 
+/-- A partial sweep removes a horizontal strip. -/
 theorem horizontalStrip_removeSuffix (lam : YoungDiagram) (t : ℕ) :
     HorizontalStrip (removeSuffix lam t) lam := by
   refine ⟨fun c hc => (mem_removeSuffix.1 hc).1, fun j => ?_⟩
   rw [colLen_removeSuffix]
   split_ifs <;> omega
 
+/-- A partial sweep of width `t ≤ λ₀` removes exactly `t` boxes. -/
 theorem card_removeSuffix (lam : YoungDiagram) {t : ℕ} (ht : t ≤ lam.rowLen 0) :
     lam.card = (removeSuffix lam t).card + t := by
   have hr : (removeSuffix lam t).rowLen 0 ≤ lam.rowLen 0 := by
@@ -165,14 +173,17 @@ inductive StripChain : ℕ → YoungDiagram → YoungDiagram → Prop
   | succ {q : ℕ} {ν μ lam : YoungDiagram} :
       StripChain q ν μ → HorizontalStrip μ lam → StripChain (q + 1) ν lam
 
+/-- The empty strip: `λ/λ`. -/
 theorem HorizontalStrip.refl (ν : YoungDiagram) : HorizontalStrip ν ν :=
   ⟨le_rfl, fun _ => Nat.le_succ _⟩
 
+/-- A chain of `q` empty strips. -/
 theorem StripChain.refl (q : ℕ) (ν : YoungDiagram) : StripChain q ν ν := by
   induction q with
   | zero => exact .zero ν
   | succ q ih => exact .succ ih (HorizontalStrip.refl ν)
 
+/-- `rowSum λ (q+1) = λ₀ + rowSum (dropRow λ) q`. -/
 theorem rowSum_succ_dropRow (lam : YoungDiagram) (q : ℕ) :
     rowSum lam (q + 1) = lam.rowLen 0 + rowSum (dropRow lam) q := by
   unfold rowSum

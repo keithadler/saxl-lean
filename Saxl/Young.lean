@@ -16,6 +16,7 @@ namespace OAI.Saxl
 
 open YoungDiagram
 
+/-- `ν ≤ τ` gives `rowLen` inequalities rowwise. -/
 theorem rowLen_le_of_le {ν τ : YoungDiagram} (h : ν ≤ τ) (i : ℕ) : ν.rowLen i ≤ τ.rowLen i := by
   by_contra hc
   push Not at hc
@@ -24,6 +25,7 @@ theorem rowLen_le_of_le {ν τ : YoungDiagram} (h : ν ≤ τ) (i : ℕ) : ν.ro
   rw [mem_iff_lt_rowLen] at this
   omega
 
+/-- `ν ≤ τ` gives `colLen` inequalities columnwise. -/
 theorem colLen_le_of_le {ν τ : YoungDiagram} (h : ν ≤ τ) (j : ℕ) : ν.colLen j ≤ τ.colLen j := by
   by_contra hc
   push Not at hc
@@ -32,9 +34,11 @@ theorem colLen_le_of_le {ν τ : YoungDiagram} (h : ν ≤ τ) (j : ℕ) : ν.co
   rw [mem_iff_lt_colLen] at this
   omega
 
+/-- `ν ≤ τ` gives `rowSum ν k ≤ rowSum τ k`. -/
 theorem rowSum_le_of_le {ν τ : YoungDiagram} (h : ν ≤ τ) (k : ℕ) : rowSum ν k ≤ rowSum τ k :=
   Finset.sum_le_sum fun i _ => rowLen_le_of_le h i
 
+/-- A diagram with no cells is `⊥`. -/
 theorem eq_bot_of_card_eq_zero {τ : YoungDiagram} (h : τ.card = 0) : τ = ⊥ := by
   ext c
   simp only [mem_cells, YoungDiagram.cells_bot, Finset.notMem_empty, iff_false]
@@ -50,6 +54,7 @@ theorem eq_bot_of_card_eq_zero {τ : YoungDiagram} (h : τ.card = 0) : τ = ⊥ 
 (rightmost first among equal heights). -/
 def shaveRow (τ : YoungDiagram) (t i : ℕ) : ℕ := (τ.rowLen i - t) + min (τ.rowLen (i + 1)) t
 
+/-- `shaveRow τ t` is weakly decreasing in the row index. -/
 theorem shaveRow_anti (τ : YoungDiagram) (t : ℕ) {i i' : ℕ} (h : i ≤ i') :
     shaveRow τ t i' ≤ shaveRow τ t i := by
   unfold shaveRow
@@ -57,11 +62,13 @@ theorem shaveRow_anti (τ : YoungDiagram) (t : ℕ) {i i' : ℕ} (h : i ≤ i') 
   have := τ.rowLen_anti (i + 1) (i' + 1) (by omega)
   omega
 
+/-- Shaving never lengthens a row. -/
 theorem shaveRow_le (τ : YoungDiagram) (t i : ℕ) : shaveRow τ t i ≤ τ.rowLen i := by
   unfold shaveRow
   have := τ.rowLen_anti i (i + 1) (by omega)
   omega
 
+/-- A box with a box below it in `τ` survives shaving (so `τ/shave τ t` is a horizontal strip). -/
 theorem lt_shaveRow_of_lt_rowLen_succ (τ : YoungDiagram) (t : ℕ) {i j : ℕ}
     (h : j < τ.rowLen (i + 1)) : j < shaveRow τ t i := by
   unfold shaveRow
@@ -81,6 +88,7 @@ def shave (τ : YoungDiagram) (t : ℕ) : YoungDiagram where
     have := hxy.2
     exact ⟨⟨by omega, by omega⟩, by omega⟩
 
+/-- Membership in `shave τ t` is given by the row-length formula `shaveRow`. -/
 theorem mem_shave {τ : YoungDiagram} {t i j : ℕ} : (i, j) ∈ shave τ t ↔ j < shaveRow τ t i := by
   rw [← mem_cells]
   simp only [shave, Finset.mem_filter, Finset.mem_product, Finset.mem_range]
@@ -98,9 +106,11 @@ theorem mem_shave {τ : YoungDiagram} {t i j : ℕ} : (i, j) ∈ shave τ t ↔ 
       have := τ.rowLen_anti 0 i (Nat.zero_le _)
       omega
 
+/-- Row lengths of the shaved diagram. -/
 theorem rowLen_shave (τ : YoungDiagram) (t i : ℕ) : (shave τ t).rowLen i = shaveRow τ t i :=
   nat_eq_of_lt_iff fun j => by rw [← mem_iff_lt_rowLen, mem_shave]
 
+/-- `shave τ t ≤ τ`. -/
 theorem shave_le (τ : YoungDiagram) (t : ℕ) : shave τ t ≤ τ := by
   intro c hc
   obtain ⟨i, j⟩ := c
@@ -108,6 +118,7 @@ theorem shave_le (τ : YoungDiagram) (t : ℕ) : shave τ t ≤ τ := by
   rw [mem_iff_lt_rowLen]
   exact lt_of_lt_of_le hc (shaveRow_le τ t i)
 
+/-- `τ/shave τ t` is a horizontal strip. -/
 theorem horizontalStrip_shave (τ : YoungDiagram) (t : ℕ) : HorizontalStrip (shave τ t) τ := by
   refine ⟨shave_le τ t, fun j => ?_⟩
   by_contra h
@@ -131,12 +142,14 @@ theorem sum_shaveRow_add (τ : YoungDiagram) {t : ℕ} (ht : t ≤ τ.rowLen 0) 
     have := τ.rowLen_anti k (k + 1) (by omega)
     omega
 
+/-- Row sums after shaving (paper eq. (2.7)): `rowSum (shave τ t) k + t = rowSum τ k + min τ_k t`. -/
 theorem rowSum_shave_add (τ : YoungDiagram) {t : ℕ} (ht : t ≤ τ.rowLen 0) (k : ℕ) :
     rowSum (shave τ t) k + t = rowSum τ k + min (τ.rowLen k) t := by
   unfold rowSum
   simp only [rowLen_shave]
   exact sum_shaveRow_add τ ht k
 
+/-- Shaving with `t ≤ τ₀` removes exactly `t` boxes. -/
 theorem card_shave_add (τ : YoungDiagram) {t : ℕ} (ht : t ≤ τ.rowLen 0) :
     (shave τ t).card + t = τ.card := by
   have hN : (shave τ t).colLen 0 ≤ τ.colLen 0 := colLen_le_of_le (shave_le τ t) 0
@@ -155,6 +168,7 @@ inductive SizedChain (θ : ℕ → ℕ) : ℕ → YoungDiagram → YoungDiagram 
       SizedChain θ ℓ ν μ → HorizontalStrip μ lam → μ.card + θ ℓ = lam.card →
         SizedChain θ (ℓ + 1) ν lam
 
+/-- A sized chain only depends on the first `ℓ` sizes. -/
 theorem SizedChain.congr {θ θ' : ℕ → ℕ} {ℓ : ℕ} {ν lam : YoungDiagram}
     (h : SizedChain θ ℓ ν lam) (he : ∀ i < ℓ, θ i = θ' i) : SizedChain θ' ℓ ν lam := by
   induction h with
@@ -206,9 +220,11 @@ theorem sizedChain_of_dominates {τ θ : YoungDiagram} (hd : Dominates τ θ) (h
 
 /-! ### Necessity: a chain of `k` strips has at most `k` rows and forces dominance -/
 
+/-- `⊥` has no columns. -/
 theorem colLen_bot (j : ℕ) : (⊥ : YoungDiagram).colLen j = 0 :=
   nat_eq_of_lt_iff fun i => by rw [← mem_iff_lt_colLen]; simp
 
+/-- After `ℓ` horizontal strips from `⊥` there are at most `ℓ` rows. -/
 theorem SizedChain.colLen_zero_le {θ : ℕ → ℕ} {ℓ : ℕ} {lam : YoungDiagram}
     (h : SizedChain θ ℓ ⊥ lam) : lam.colLen 0 ≤ ℓ := by
   generalize hb : (⊥ : YoungDiagram) = b at h
@@ -219,12 +235,14 @@ theorem SizedChain.colLen_zero_le {θ : ℕ → ℕ} {ℓ : ℕ} {lam : YoungDia
     have := ih hb
     omega
 
+/-- The start of a sized chain is contained in its end. -/
 theorem SizedChain.le {θ : ℕ → ℕ} {ℓ : ℕ} {ν lam : YoungDiagram}
     (h : SizedChain θ ℓ ν lam) : ν ≤ lam := by
   induction h with
   | zero ν => exact le_rfl
   | succ _ hs _ ih => exact ih.trans hs.1
 
+/-- The size of the end of a sized chain from `⊥` is the sum of the strip sizes. -/
 theorem SizedChain.card {θ : ℕ → ℕ} {ℓ : ℕ} {lam : YoungDiagram}
     (h : SizedChain θ ℓ ⊥ lam) : lam.card = ∑ i ∈ Finset.range ℓ, θ i := by
   generalize hb : (⊥ : YoungDiagram) = b at h
