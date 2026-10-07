@@ -119,7 +119,10 @@ Sub-steps: (i) model `S_a × S_b ↪ S_{a+b}` and `Ind` via `Rep.ind`; (ii) Frob
 from a `λ`-tableau whose last `b` positions fill the strip, symmetrising over `S_b`;
 (iv) `occurs_of_intertwiner_to` + functoriality of `Ind` in `W`.
 
-**N2. Lemma 4.1** (`Sectors.lean`): transitive `G`-set `Ω`, `T = ⊕_{A∈Ω} T_A`, `g T_A = T_{gA}`,
+**N2. Lemma 4.1 — DONE** (`Sectors.lean`): **`exists_extension_of_sectors`** — for a finite group acting
+transitively on `Ω` with equivariant sector projections, every `H`-intertwiner `ℂ[H]z → Res_H S`
+extends to a `G`-intertwiner `ℂ[G]z → S` (the universal property of `Ind_H^G ℂ[H]z ≅ ℂ[G]z`, which is
+all §6 needs; no explicit `Ind` construction).  Original statement: transitive `G`-set `Ω`, `T = ⊕_{A∈Ω} T_A`, `g T_A = T_{gA}`,
 `z ∈ T_D`, `A₀ = ℂ[H] z` ⇒ `Ind_H^G A₀ ≅ ℂ[G] z`.  State with `Representation.coind` or `Rep.ind`.
 
 **N3. Sign twist** (`SignTwist.lean`): `S^λ ⊗ ε ≅ S^{λᵗ}` in the word model (paper eq. 2.3).
