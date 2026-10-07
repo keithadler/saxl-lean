@@ -10,3 +10,4 @@ import Saxl.Content
 import Saxl.Antisymmetrizer
 import Saxl.ColumnLemma
 import Saxl.SubmoduleTheorem
+import Saxl.Branching

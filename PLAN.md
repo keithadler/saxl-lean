@@ -97,7 +97,10 @@ in `W` — this is how Prop 4.2's band quotient feeds the induction.
 
 ## Next milestones (in order)
 
-**N1. Pieri-occurrence** (`Pieri.lean`).  For `λ/ν` a horizontal strip with `|ν| = a`, `|λ| = a + b`:
+**N1. Pieri-occurrence** (`Branching.lean` + `Pieri.lean`).  PROGRESS: `Branching.lean` DONE —
+`embPair`, `StripTableau`, `nuTableau`, `extend`, `Φ` (`S_a`-equivariant), `symmPolytabloid` (`S_b`-fixed, in `S^λ`),
+and **`Φ_symmPolytabloid : Φ u = stripCount • e_{t_ν}`** with `stripCount_pos`.  This is sub-step (iii)'s core.
+Original plan:  For `λ/ν` a horizontal strip with `|ν| = a`, `|λ| = a + b`:
 `Occurs ν W` (as `S_a`-rep) ⇒ `Occurs λ (Ind_{S_a × S_b}^{S_{a+b}} (W ⊠ 1))`.
 Sub-steps: (i) model `S_a × S_b ↪ S_{a+b}` and `Ind` via `Rep.ind`; (ii) Frobenius:
 `Hom_{S_n}(Ind(S^ν ⊠ 1), S^λ) ≅ Hom_{S_a×S_b}(S^ν ⊠ 1, Res S^λ)` (`Rep.indResAdjunction`);
