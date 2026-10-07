@@ -27,3 +27,4 @@ import Saxl.StaircasePairs
 import Saxl.QMap
 import Saxl.LetterInj
 import Saxl.TwistPair
+import Saxl.Prop32

@@ -166,7 +166,10 @@ Also DONE: `Orbit.lean` (equal content ⇒ conjugate ⇒ same cyclic module; let
 (transport of `Occurs` along `Fin n ≃ Fin n'`), `transpose_staircase`.
 `QMap.lean` DONE: `contentProj` (equivariant), row reversal `revPerm`, `qmap`, `pairWord_eq_target_iff`,
 and **`Q_pair`** (paper eq. 3.10): `Q(e_{t'} ⊗ e_{tᵀ}) = (|C|·sign ω) • e_{c₀}`, scalar nonzero.
-Remaining for Prop 3.2: the twisted map `id ⊗ Θ` with `Z_m ⊆ (id⊗Θ)(W_m)`, and the
+**Prop 3.2 — DONE** (`Prop32.lean`): `prop32 : Dominates (staircase m) λ → |λ| = N_m → Occurs tλ W_m`,
+with `W_m = ℂ[G](v_R ⊗ v_C)` in the pair-letter word space (`TwistPair.lean`, `LetterInj.lean`).
+No multiplicity-one Young's rule used.
+Formerly remaining for Prop 3.2: the twisted map `id ⊗ Θ` with `Z_m ⊆ (id⊗Θ)(W_m)`, and the
 `Occurs` chain (`of_surjective` ×2, mono, `occurs_of_occurs_transpose`, `young_occurs` + cast + orbit).
 
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
