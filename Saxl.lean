@@ -20,3 +20,5 @@ import Saxl.SignTwistOccurs
 import Saxl.WordRep
 import Saxl.WordSectors
 import Saxl.YoungOccurs
+import Saxl.Orbit
+import Saxl.CastN

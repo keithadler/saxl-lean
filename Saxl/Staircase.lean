@@ -55,4 +55,11 @@ theorem rowSum_staircase_of_le (m : ℕ) {k : ℕ} (hk : m ≤ k) :
   rw [rowSum, sum_rowLen_eq_card]
   rw [colLen_staircase]; omega
 
+/-- The staircase is self-conjugate. -/
+theorem transpose_staircase (m : ℕ) : (staircase m).transpose = staircase m := by
+  ext ⟨i, j⟩
+  rw [YoungDiagram.mem_cells, YoungDiagram.mem_cells, mem_transpose, Prod.swap_prod_mk,
+    mem_staircase, mem_staircase]
+  omega
+
 end OAI.Saxl
