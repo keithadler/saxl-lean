@@ -129,7 +129,13 @@ extends to a `G`-intertwiner `ℂ[G]z → S` (the universal property of `Ind_H^G
 all §6 needs; no explicit `Ind` construction).  Original statement: transitive `G`-set `Ω`, `T = ⊕_{A∈Ω} T_A`, `g T_A = T_{gA}`,
 `z ∈ T_D`, `A₀ = ℂ[H] z` ⇒ `Ind_H^G A₀ ≅ ℂ[G] z`.  State with `Representation.coind` or `Rep.ind`.
 
-**N3. Sign twist** (`SignTwist.lean`): `S^λ ⊗ ε ≅ S^{λᵗ}` in the word model (paper eq. 2.3).
+**N3. Sign twist** (`SignTwist.lean`) — part A DONE: `signTwist` (`V ⊗ ε`), `transposeTableau`,
+the twisted intertwiner `Θ : M^λ ⊗ ε → M^{λᵗ}` defined on the orbit of the row word by
+`Θ(e_{rw∘g⁻¹}) = sign g • g • e_{tᵗ}` (well defined since `R_t = C_{tᵗ}` acts on `e_{tᵗ}` by signs),
+`Θ(e_t) = Σ_{h∈C_t} h • e_{tᵗ}` with coefficient `|C_t|` at the column word, and **`ΘS ≠ 0`**:
+a nonzero twisted intertwiner `S^λ ⊗ ε → S^{λᵗ}`.  No Young-symmetrizer theory needed.
+Part B (to do): irreducibility of the twist, bijectivity of `ΘS`, and the transfer lemmas
+`Occurs tᵗ (signTwist V) ↔ Occurs t V`.
 
 **N4. Self-duality / Lemma 2.1 transport** (`Duality.lean`): `(S^λ)* ≅ S^λ`; alternating block
 tensors for any ordered basis of a dual space span a copy of `S^θ`.
