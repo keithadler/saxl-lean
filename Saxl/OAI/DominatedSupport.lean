@@ -196,7 +196,7 @@ theorem dominated_support (m : ℕ) (_hm : 1 ≤ m) (μ : YoungDiagram)
     intro x
     have hh := congrArg (fun l => l x) hz
     change E.symm (Q x) = 0 at hh
-    exact E.symm.injective (hh.trans (map_zero _).symm)
+    exact E.symm.injective (hh.trans (LinearEquiv.map_zero _).symm)
   let := specht_irreducible t
   have hRs : Function.Surjective R :=
     (Representation.IsIrreducible.surjective_or_eq_zero R).resolve_right hR

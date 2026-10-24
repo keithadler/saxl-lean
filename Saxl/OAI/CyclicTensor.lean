@@ -73,7 +73,7 @@ theorem young_orbit_map {n : ℕ} (θ τ : YoungDiagram) (t : Tableau n τ)
     (spechtSub_tableau_independent _ _)
   refine ⟨E.toIntertwiningMap.comp F, ?_⟩
   intro hz
-  exact hwF (E.injective (hz.trans (map_zero _).symm))
+  exact hwF (E.injective (hz.trans (LinearEquiv.map_zero _).symm))
 
 
 

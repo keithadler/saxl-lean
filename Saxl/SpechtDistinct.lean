@@ -198,14 +198,14 @@ theorem eq_of_specht_equiv (φ : (spechtRep s).Equiv (spechtRep t)) : η = θ :=
     have : φ.symm.toIntertwiningMap ⟨polytabloid t, polytabloid_mem_specht t⟩ = 0 := by
       rw [h0]; rfl
     have h2 : (⟨polytabloid t, polytabloid_mem_specht t⟩ : Specht t) = 0 :=
-      φ.symm.toLinearEquiv.injective (by rw [Representation.Equiv.toLinearEquiv_apply, this, map_zero])
+      φ.symm.toLinearEquiv.injective (by rw [Representation.Equiv.toLinearEquiv_apply, this, LinearEquiv.map_zero])
     exact polytabloid_ne_zero t (congrArg Subtype.val h2)
   have h2 : Occurs s (contentSub (content (rowWord t))).toRepresentation := by
     refine occurs_of_le s (spechtSub_le_contentSub t) ⟨φ.toIntertwiningMap, fun h0 => ?_⟩
     have : φ.toIntertwiningMap ⟨polytabloid s, polytabloid_mem_specht s⟩ = 0 := by
       rw [h0]; rfl
     have h2 : (⟨polytabloid s, polytabloid_mem_specht s⟩ : Specht s) = 0 :=
-      φ.toLinearEquiv.injective (by rw [Representation.Equiv.toLinearEquiv_apply, this, map_zero])
+      φ.toLinearEquiv.injective (by rw [Representation.Equiv.toLinearEquiv_apply, this, LinearEquiv.map_zero])
     exact polytabloid_ne_zero s (congrArg Subtype.val h2)
   exact Dominates.antisymm (dominates_of_occurs_contentSub t s h1)
     (dominates_of_occurs_contentSub s t h2)

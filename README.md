@@ -118,8 +118,11 @@ Specht modules themselves are not in Mathlib; `contrib/MATHLIB-PR.md` tracks the
 
 ## Toolchain and building
 
-* Lean `v4.34.1` and Mathlib at commit `d13f23b723b8a846827a245b89c10fc7d3f11612` — the exact pins
-  used by `openai/math`.
+* Lean `v4.35.0` and Mathlib `v4.35.0` (commit `56a005855ea17e0b0958f73ec801ae140b0a1679`). Until 2026-10-24 this repository
+  used Lean `v4.34.1` and Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`, the exact pins used by `openai/math`. It no
+  longer does: the statement here is checked against a newer Mathlib than OpenAI's. Four proofs needed a one-word change
+  (`map_zero` named as `LinearEquiv.map_zero`, because Lean could no longer find it within its search limit); no
+  statement changed.
 
 ```bash
 lake exe cache get   # fetch Mathlib oleans (several GB)

@@ -151,7 +151,7 @@ theorem word_support_separates {n d : ℕ} {V : Type uV} [AddCommGroup V] [Modul
     have hz := congrArg (fun F : Representation.IntertwiningMap (spechtRep t) (wordRep n d) =>
       F ⟨polytabloid t, mem_cyclic _ _⟩) he
     have h0 : e.symm ⟨polytabloid t, mem_cyclic _ _⟩ = 0 := Subtype.ext hz
-    have h1 := e.symm.injective (h0.trans (map_zero _).symm)
+    have h1 := e.symm.injective (h0.trans (LinearEquiv.map_zero _).symm)
     exact polytabloid_ne_zero t (congrArg Subtype.val h1)
   obtain ⟨f, hf⟩ := h _ t (specht_rows_of_hom t i hi)
   refine ⟨f.comp e.toIntertwiningMap, ?_⟩
